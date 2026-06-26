@@ -142,6 +142,33 @@
         cursor: pointer;
       }
 
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .actions .primary-button,
+      .actions .logout-button {
+        min-height: 42px;
+        padding: 0 16px;
+      }
+
+      .status-pill {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--panel-soft);
+        padding: 0 16px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
       .summary-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -258,6 +285,20 @@
         line-height: 1.6;
       }
 
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        max-width: min(420px, calc(100vw - 36px));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--text);
+        color: #fff;
+        padding: 12px 14px;
+        box-shadow: var(--shadow);
+        z-index: 10;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -296,7 +337,11 @@
           <h1>投資總表</h1>
           <p class="footnote" id="snapshotNote"></p>
         </div>
-        <button id="logoutBtn" class="logout-button" type="button">鎖定</button>
+        <div class="actions">
+          <span id="updatedAt" class="status-pill">尚未更新</span>
+          <button id="refreshBtn" class="primary-button" type="button">刷新股價</button>
+          <button id="logoutBtn" class="logout-button" type="button">鎖定</button>
+        </div>
       </header>
 
       <section class="summary-grid" aria-label="總覽">
@@ -322,7 +367,7 @@
         <div class="section-head">
           <div>
             <h2>持股明細</h2>
-            <p class="footnote">此頁使用匯入時的股價快照，不會自動連線更新股價。</p>
+            <p class="footnote">股價資料由 GitHub 每 5 分鐘更新；此頁也會每 5 分鐘自動刷新，並保留手動刷新鍵。</p>
           </div>
         </div>
         <div class="table-wrap">
@@ -367,10 +412,17 @@
           </div>
         </div>
       </section>
+      <div id="toast" class="toast" hidden></div>
     </main>
 
     <script>
       const PASSWORD_HASH = "21039d52a7306ee5b6b7b43512d78cde1da852f5679f401459dd757b42b23a57";
+      const AUTO_REFRESH_MS = 5 * 60 * 1000;
+      const QUOTES_URL = "quotes.json";
+
+      let isRefreshing = false;
+      let autoRefreshTimer = null;
+      let lastRefreshAt = null;
 
       const state = {
         cash: 2197.18,
@@ -429,6 +481,9 @@
       const passwordInput = document.getElementById("passwordInput");
       const loginMessage = document.getElementById("loginMessage");
       const app = document.getElementById("app");
+      const refreshBtn = document.getElementById("refreshBtn");
+      const updatedAt = document.getElementById("updatedAt");
+      const toast = document.getElementById("toast");
 
       loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -447,6 +502,8 @@
         location.reload();
       });
 
+      refreshBtn.addEventListener("click", () => refreshQuotes({ quiet: false }));
+
       if (sessionStorage.getItem("priceChangeUnlocked") === "1") {
         showApp();
       }
@@ -461,13 +518,82 @@
         loginScreen.hidden = true;
         app.hidden = false;
         render();
+        refreshQuotes({ quiet: true });
+        startAutoRefresh();
+      }
+
+      function startAutoRefresh() {
+        if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+        autoRefreshTimer = setInterval(() => {
+          if (document.hidden || isRefreshing) return;
+          refreshQuotes({ quiet: true, automatic: true });
+        }, AUTO_REFRESH_MS);
+      }
+
+      async function refreshQuotes({ quiet, automatic = false } = {}) {
+        if (isRefreshing) {
+          if (!quiet) showToast("股價正在更新中");
+          return;
+        }
+
+        isRefreshing = true;
+        refreshBtn.disabled = true;
+        refreshBtn.textContent = automatic ? "自動更新中" : "更新中";
+
+        try {
+          const quoteData = await fetchJson(`${QUOTES_URL}?t=${Date.now()}`);
+          const quotes = quoteData.quotes || {};
+          state.holdings = state.holdings.map((holding) => {
+            const quote = quotes[holding.symbol];
+            if (!quote || quote.price == null) return holding;
+            return {
+              ...holding,
+              price: Number(quote.price),
+              previousClose: Number(quote.previousClose ?? holding.previousClose),
+              change: Number(quote.change ?? Number(quote.price) - Number(quote.previousClose ?? holding.previousClose)),
+              changePercent: Number(quote.changePercent ?? 0),
+              marketTime: quote.marketTime || null,
+              source: quote.source || "Yahoo"
+            };
+          });
+
+          if (quoteData.fx?.rate) {
+            state.usdTwdRate = Number(quoteData.fx.rate);
+            state.fxUpdatedAt = quoteData.fx.updatedAt || quoteData.updatedAt;
+            state.fxSource = quoteData.fx.source || "Yahoo";
+          }
+
+          lastRefreshAt = new Date(quoteData.updatedAt || Date.now());
+          render();
+
+          const failedSymbols = Object.keys(quoteData.errors || {});
+          if (failedSymbols.length) {
+            showToast(`部分股價未更新：${failedSymbols.join(", ")}`);
+          } else if (!quiet) {
+            showToast("股價已更新");
+          }
+        } catch (error) {
+          if (!quiet) showToast(`刷新失敗：${error.message}`);
+        } finally {
+          isRefreshing = false;
+          refreshBtn.disabled = false;
+          refreshBtn.textContent = "刷新股價";
+        }
+      }
+
+      async function fetchJson(url) {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
       }
 
       function render() {
         const rows = state.holdings.map((holding) => {
           const marketValue = holding.shares * holding.price;
-          const change = holding.price - holding.previousClose;
-          const changePercent = holding.previousClose ? (change / holding.previousClose) * 100 : 0;
+          const change = Number.isFinite(holding.change) ? holding.change : holding.price - holding.previousClose;
+          const changePercent = Number.isFinite(holding.changePercent)
+            ? holding.changePercent
+            : holding.previousClose ? (change / holding.previousClose) * 100 : 0;
           const valueChange = holding.shares * change;
           return { ...holding, marketValue, change, changePercent, valueChange };
         });
@@ -476,9 +602,14 @@
         const total = securities + state.cash;
         const largest = rows.slice().sort((a, b) => b.marketValue - a.marketValue)[0];
         const updatedAt = new Date(state.savedAt);
+        const quoteText = lastRefreshAt
+          ? `最新報價：${lastRefreshAt.toLocaleString("zh-TW")}`
+          : "最新報價：使用頁面內建快照";
 
         document.getElementById("snapshotNote").textContent =
-          `資料快照：${updatedAt.toLocaleString("zh-TW")}，USD/TWD ${state.usdTwdRate}`;
+          `資料快照：${updatedAt.toLocaleString("zh-TW")}，${quoteText}，USD/TWD ${state.usdTwdRate}`;
+        document.getElementById("updatedAt").textContent =
+          lastRefreshAt ? `已更新 ${lastRefreshAt.toLocaleTimeString("zh-TW")}` : "尚未更新";
         document.getElementById("totalUsd").textContent = formatMoney(total);
         document.getElementById("totalTwd").textContent = twdFormatter.format(total * state.usdTwdRate);
         document.getElementById("cashValue").textContent = formatMoney(state.cash);
@@ -585,6 +716,15 @@
         if (n > 0) return "positive";
         if (n < 0) return "negative";
         return "";
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.hidden = false;
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => {
+          toast.hidden = true;
+        }, 3000);
       }
 
       function escapeHtml(value) {
