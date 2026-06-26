@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portfolio Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Tailscale 私人同步版</p>
+          <h1>投資總表</h1>
+          <p id="lanHint" class="lan-hint">手機網址讀取中...</p>
+        </div>
+        <div class="actions">
+          <span id="updatedAt" class="status-pill">尚未更新</span>
+          <button id="refreshBtn" class="primary-button" type="button">刷新股價</button>
+          <button id="logoutBtn" class="secondary-button" type="button">登出</button>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="資產摘要">
+        <div class="metric-card">
+          <span>總資產 USD</span>
+          <strong id="totalUsd">-</strong>
+        </div>
+        <div class="metric-card">
+          <span>約當台幣</span>
+          <strong id="totalTwd">-</strong>
+          <small id="fxRate">匯率尚未更新</small>
+        </div>
+        <div class="metric-card">
+          <span>股票與 ETF</span>
+          <strong id="securitiesValue">-</strong>
+        </div>
+        <div class="metric-card">
+          <span>現金</span>
+          <strong id="cashValue">-</strong>
+        </div>
+        <div class="metric-card">
+          <span>今日市值變化</span>
+          <strong id="dayChangeValue">-</strong>
+        </div>
+        <div class="metric-card">
+          <span>最大持股</span>
+          <strong id="largestHolding">-</strong>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <aside class="side-panel">
+          <div class="panel-heading">
+            <h2>新增持股</h2>
+          </div>
+          <div class="input-grid">
+            <label>
+              股票代號
+              <input id="symbolInput" type="text" value="NVDA" autocomplete="off">
+            </label>
+            <label>
+              股數
+              <input id="sharesInput" type="text" inputmode="decimal" value="100">
+            </label>
+            <button id="addBtn" class="secondary-button" type="button">加入</button>
+          </div>
+          <label class="cash-field">
+            現金
+            <input id="cashInput" type="text" inputmode="decimal">
+          </label>
+          <p class="hint">現金只會在你手動修改後儲存，刷新股價不會改現金。</p>
+        </aside>
+
+        <main class="main-panel">
+          <section class="panel">
+            <div class="panel-heading row-heading">
+              <h2>持股明細</h2>
+              <button id="copyBtn" class="secondary-button" type="button">複製持股</button>
+            </div>
+            <div class="table-wrap">
+              <table class="holdings-table">
+                <thead>
+                  <tr>
+                    <th>代號</th>
+                    <th>股數</th>
+                    <th>最新價格</th>
+                    <th>日變動</th>
+                    <th>市值變化</th>
+                    <th>市值</th>
+                    <th>佔比</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="holdingsBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading row-heading">
+              <div>
+                <h2>收盤後總資產追蹤</h2>
+                <p>刷新股價時會嘗試補回可取得的收盤紀錄，也可以手動記錄目前總資產。</p>
+              </div>
+              <button id="recordBtn" class="secondary-button" type="button">記錄目前總資產</button>
+            </div>
+            <div class="history-stats">
+              <div><span>目前紀錄</span><strong id="historyCount">0 筆</strong></div>
+              <div><span>最新總資產</span><strong id="latestHistoryTotal">-</strong></div>
+              <div><span>累計變化</span><strong id="historyChange">-</strong></div>
+            </div>
+            <div id="historyChart" class="chart-box"></div>
+            <div class="table-wrap compact">
+              <table>
+                <thead>
+                  <tr>
+                    <th>日期</th>
+                    <th>總資產</th>
+                    <th>股票與 ETF</th>
+                    <th>現金</th>
+                    <th>記錄時間</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>最近變動</h2>
+            </div>
+            <div id="changeLog" class="change-log"></div>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
