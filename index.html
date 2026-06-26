@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>投資總表</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f8fc;
+        --panel: #ffffff;
+        --panel-soft: #f8fbff;
+        --line: #dce6f2;
+        --text: #14233b;
+        --muted: #65758b;
+        --blue: #126fb0;
+        --green: #1f7a3d;
+        --red: #bd2635;
+        --shadow: 0 16px 40px rgba(26, 47, 80, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "Segoe UI", Arial, sans-serif;
+        letter-spacing: 0;
+      }
+
+      button, input {
+        font: inherit;
+      }
+
+      .login-screen {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .login-card {
+        width: min(430px, 100%);
+        padding: 30px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .login-card h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+      }
+
+      .login-card p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .login-card label {
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .login-card input {
+        width: 100%;
+        min-height: 54px;
+        border: 1px solid #c9d8e8;
+        border-radius: 8px;
+        padding: 10px 14px;
+        color: var(--text);
+        font-size: 22px;
+      }
+
+      .primary-button {
+        min-height: 48px;
+        border: 1px solid var(--blue);
+        border-radius: 8px;
+        background: var(--blue);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .login-card .primary-button {
+        width: 100%;
+        margin-top: 18px;
+      }
+
+      .message {
+        min-height: 24px;
+        margin-top: 14px;
+        color: var(--red);
+      }
+
+      .app {
+        width: min(1500px, calc(100% - 28px));
+        margin: 0 auto;
+        padding: 28px 0 36px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        margin: 0 0 6px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      h1, h2 {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(30px, 4vw, 48px);
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .logout-button {
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .metric-label {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .metric-value {
+        margin: 0;
+        font-size: clamp(22px, 3vw, 34px);
+        font-weight: 800;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .positive { color: var(--green); }
+      .negative { color: var(--red); }
+
+      .section {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 20px;
+        margin-top: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 920px;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e6edf5;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      th:first-child, td:first-child {
+        text-align: left;
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      td {
+        font-size: 18px;
+      }
+
+      .symbol {
+        color: var(--blue);
+        font-size: 22px;
+        font-weight: 800;
+      }
+
+      .history-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+        gap: 18px;
+      }
+
+      .chart {
+        width: 100%;
+        min-height: 330px;
+      }
+
+      .history-list {
+        max-height: 360px;
+        overflow: auto;
+      }
+
+      .history-list table {
+        min-width: 420px;
+      }
+
+      .footnote {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @media (max-width: 900px) {
+        .topbar,
+        .section-head {
+          display: grid;
+        }
+
+        .summary-grid,
+        .history-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="loginScreen" class="login-screen">
+      <form id="loginForm" class="login-card">
+        <h1>投資總表</h1>
+        <p>請輸入進入密碼。</p>
+        <label>
+          密碼
+          <input id="passwordInput" type="password" autocomplete="current-password" autofocus>
+        </label>
+        <button class="primary-button" type="submit">進入</button>
+        <div id="loginMessage" class="message" role="status" aria-live="polite"></div>
+      </form>
+    </main>
+
+    <main id="app" class="app" hidden>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GitHub HTML Snapshot</p>
+          <h1>投資總表</h1>
+          <p class="footnote" id="snapshotNote"></p>
+        </div>
+        <button id="logoutBtn" class="logout-button" type="button">鎖定</button>
+      </header>
+
+      <section class="summary-grid" aria-label="總覽">
+        <article class="card">
+          <p class="metric-label">總資產 USD</p>
+          <p id="totalUsd" class="metric-value">-</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">約當台幣</p>
+          <p id="totalTwd" class="metric-value">-</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">現金</p>
+          <p id="cashValue" class="metric-value">-</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">最大持股</p>
+          <p id="largestHolding" class="metric-value">-</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>持股明細</h2>
+            <p class="footnote">此頁使用匯入時的股價快照，不會自動連線更新股價。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代號</th>
+                <th>股數</th>
+                <th>價格</th>
+                <th>日變動</th>
+                <th>市值變化</th>
+                <th>市值</th>
+                <th>佔比</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>收盤後總資產追蹤</h2>
+            <p id="historyNote" class="footnote"></p>
+          </div>
+          <strong id="historyChange"></strong>
+        </div>
+        <div class="history-grid">
+          <div id="historyChart" class="chart" aria-label="總資產歷史圖"></div>
+          <div class="history-list">
+            <table>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>總資產</th>
+                  <th>日變化</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const PASSWORD_HASH = "21039d52a7306ee5b6b7b43512d78cde1da852f5679f401459dd757b42b23a57";
+
+      const state = {
+        cash: 2197.18,
+        usdTwdRate: 31.85,
+        savedAt: "2026-06-26T17:05:37.299Z",
+        holdings: [
+          { symbol: "NVDA", shares: 4933, price: 194.68, previousClose: 195.74 },
+          { symbol: "TSM", shares: 138, price: 434.25, previousClose: 434.99 },
+          { symbol: "BOXX", shares: 70, price: 117.15, previousClose: 117.12 },
+          { symbol: "TLT", shares: 317, price: 87.31, previousClose: 87.35 },
+          { symbol: "VOO", shares: 135.1333, price: 675.59, previousClose: 673.748 },
+          { symbol: "QQQ", shares: 30, price: 714.08, previousClose: 716.38 },
+          { symbol: "GLW", shares: 100, price: 215.985, previousClose: 228.01 },
+          { symbol: "MU", shares: 20, price: 1179.54, previousClose: 1213.56 }
+        ],
+        history: [
+          { date: "2026-06-04", total: 1268064.01, dayChange: null },
+          { date: "2026-06-05", total: 1196245.63, dayChange: -71818.38 },
+          { date: "2026-06-08", total: 1213577.24, dayChange: 17331.61 },
+          { date: "2026-06-09", total: 1211269.80, dayChange: -2307.44 },
+          { date: "2026-06-10", total: 1170127.02, dayChange: -41142.78 },
+          { date: "2026-06-11", total: 1195322.21, dayChange: 25195.19 },
+          { date: "2026-06-12", total: 1187846.46, dayChange: -7475.75 },
+          { date: "2026-06-15", total: 1212186.90, dayChange: 24340.44 },
+          { date: "2026-06-16", total: 1183557.08, dayChange: -28629.82 },
+          { date: "2026-06-17", total: 1182243.80, dayChange: -1313.28 },
+          { date: "2026-06-18", total: 1271279.45, dayChange: 89035.65 },
+          { date: "2026-06-22", total: 1291556.24, dayChange: 20276.79 },
+          { date: "2026-06-23", total: 1237983.85, dayChange: -53572.39 },
+          { date: "2026-06-24", total: 1234773.10, dayChange: -3210.75 },
+          { date: "2026-06-25", total: 1223574.13, dayChange: -11198.97 },
+          { date: "2026-06-26", total: 1216286.85, dayChange: -7287.28 }
+        ]
+      };
+
+      const moneyFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      const twdFormatter = new Intl.NumberFormat("zh-TW", {
+        style: "currency",
+        currency: "TWD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+
+      const numberFormatter = new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 4
+      });
+
+      const loginScreen = document.getElementById("loginScreen");
+      const loginForm = document.getElementById("loginForm");
+      const passwordInput = document.getElementById("passwordInput");
+      const loginMessage = document.getElementById("loginMessage");
+      const app = document.getElementById("app");
+
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const hash = await sha256(passwordInput.value);
+        if (hash !== PASSWORD_HASH) {
+          loginMessage.textContent = "密碼錯誤。";
+          passwordInput.select();
+          return;
+        }
+        sessionStorage.setItem("priceChangeUnlocked", "1");
+        showApp();
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem("priceChangeUnlocked");
+        location.reload();
+      });
+
+      if (sessionStorage.getItem("priceChangeUnlocked") === "1") {
+        showApp();
+      }
+
+      async function sha256(text) {
+        const bytes = new TextEncoder().encode(text);
+        const digest = await crypto.subtle.digest("SHA-256", bytes);
+        return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function showApp() {
+        loginScreen.hidden = true;
+        app.hidden = false;
+        render();
+      }
+
+      function render() {
+        const rows = state.holdings.map((holding) => {
+          const marketValue = holding.shares * holding.price;
+          const change = holding.price - holding.previousClose;
+          const changePercent = holding.previousClose ? (change / holding.previousClose) * 100 : 0;
+          const valueChange = holding.shares * change;
+          return { ...holding, marketValue, change, changePercent, valueChange };
+        });
+
+        const securities = rows.reduce((sum, row) => sum + row.marketValue, 0);
+        const total = securities + state.cash;
+        const largest = rows.slice().sort((a, b) => b.marketValue - a.marketValue)[0];
+        const updatedAt = new Date(state.savedAt);
+
+        document.getElementById("snapshotNote").textContent =
+          `資料快照：${updatedAt.toLocaleString("zh-TW")}，USD/TWD ${state.usdTwdRate}`;
+        document.getElementById("totalUsd").textContent = formatMoney(total);
+        document.getElementById("totalTwd").textContent = twdFormatter.format(total * state.usdTwdRate);
+        document.getElementById("cashValue").textContent = formatMoney(state.cash);
+        document.getElementById("largestHolding").textContent =
+          largest ? `${largest.symbol} ${((largest.marketValue / total) * 100).toFixed(2)}%` : "-";
+
+        document.getElementById("holdingsBody").innerHTML = rows
+          .sort((a, b) => b.marketValue - a.marketValue)
+          .map((row) => `
+            <tr>
+              <td class="symbol">${escapeHtml(row.symbol)}</td>
+              <td>${numberFormatter.format(row.shares)}</td>
+              <td>${formatMoney(row.price)}</td>
+              <td class="${classFor(row.change)}">${formatSignedMoney(row.change)} / ${formatSignedPercent(row.changePercent)}</td>
+              <td class="${classFor(row.valueChange)}">${formatSignedMoney(row.valueChange)}</td>
+              <td>${formatMoney(row.marketValue)}</td>
+              <td>${((row.marketValue / total) * 100).toFixed(2)}%</td>
+            </tr>
+          `).join("");
+
+        renderHistory();
+      }
+
+      function renderHistory() {
+        const rows = state.history.slice().sort((a, b) => a.date.localeCompare(b.date));
+        const first = rows[0];
+        const latest = rows.at(-1);
+        const change = latest.total - first.total;
+        const changePercent = first.total ? (change / first.total) * 100 : 0;
+
+        document.getElementById("historyNote").textContent =
+          `累計變化基準：${first.date}，目前共有 ${rows.length} 筆收盤後總資產紀錄。`;
+        const historyChange = document.getElementById("historyChange");
+        historyChange.className = classFor(change);
+        historyChange.textContent = `${formatSignedMoney(change)} / ${formatSignedPercent(changePercent)}`;
+
+        document.getElementById("historyChart").innerHTML = createChart(rows);
+        document.getElementById("historyBody").innerHTML = rows.slice().reverse().map((row) => `
+          <tr>
+            <td>${escapeHtml(row.date)}</td>
+            <td>${formatMoney(row.total)}</td>
+            <td class="${classFor(row.dayChange || 0)}">${row.dayChange == null ? "-" : formatSignedMoney(row.dayChange)}</td>
+          </tr>
+        `).join("");
+      }
+
+      function createChart(rows) {
+        const width = 960;
+        const height = 320;
+        const pad = 46;
+        const values = rows.map((row) => row.total);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const range = max - min || 1;
+
+        const points = rows.map((row, index) => {
+          const x = pad + (index / Math.max(rows.length - 1, 1)) * (width - pad * 2);
+          const y = height - pad - ((row.total - min) / range) * (height - pad * 2);
+          return { x, y, row };
+        });
+
+        const line = points.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(" ");
+        const area = `${pad},${height - pad} ${line} ${width - pad},${height - pad}`;
+        const ticks = [min, min + range / 2, max];
+
+        return `
+          <svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" role="img" aria-label="收盤後總資產走勢">
+            ${ticks.map((tick) => {
+              const y = height - pad - ((tick - min) / range) * (height - pad * 2);
+              return `
+                <line x1="${pad}" y1="${y}" x2="${width - pad}" y2="${y}" stroke="#dfe8f1" />
+                <text x="${pad - 10}" y="${y + 5}" text-anchor="end" fill="#65758b" font-size="15">${formatMoney(tick)}</text>
+              `;
+            }).join("")}
+            <polygon points="${area}" fill="#d8eaf7" opacity="0.9"></polygon>
+            <polyline points="${line}" fill="none" stroke="#126fb0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            ${points.map((point) => `
+              <circle cx="${point.x}" cy="${point.y}" r="6" fill="#ffffff" stroke="#126fb0" stroke-width="4">
+                <title>${point.row.date}: ${formatMoney(point.row.total)}</title>
+              </circle>
+            `).join("")}
+            <text x="${pad}" y="${height - 12}" fill="#65758b" font-size="15">${rows[0].date.slice(5)}</text>
+            <text x="${width - pad}" y="${height - 12}" text-anchor="end" fill="#65758b" font-size="15">${rows.at(-1).date.slice(5)}</text>
+          </svg>
+        `;
+      }
+
+      function formatMoney(value) {
+        return moneyFormatter.format(Number(value) || 0);
+      }
+
+      function formatSignedMoney(value) {
+        const n = Number(value) || 0;
+        return `${n >= 0 ? "+" : "-"}${formatMoney(Math.abs(n))}`;
+      }
+
+      function formatSignedPercent(value) {
+        const n = Number(value) || 0;
+        return `${n >= 0 ? "+" : "-"}${Math.abs(n).toFixed(2)}%`;
+      }
+
+      function classFor(value) {
+        const n = Number(value) || 0;
+        if (n > 0) return "positive";
+        if (n < 0) return "negative";
+        return "";
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+    </script>
+  </body>
+</html>
