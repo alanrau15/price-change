@@ -32,90 +32,98 @@ jobs:
           node <<'NODE'
           const fs = require("node:fs/promises");
 
-          const symbols = ["NVDA", "TSM", "BOXX", "TLT", "VOO", "QQQ", "GLW", "MU"];
+          (async () => {
+            const symbols = ["NVDA", "TSM", "BOXX", "TLT", "VOO", "QQQ", "GLW", "MU"];
+            const existing = await fs.readFile("quotes.json", "utf8")
+              .then((text) => JSON.parse(text))
+              .catch(() => ({ quotes: {}, fx: null }));
 
-          function toNumber(value, fallback = null) {
-            const n = Number(value);
-            return Number.isFinite(n) ? n : fallback;
-          }
-
-          async function fetchJson(url) {
-            const response = await fetch(url, {
-              headers: {
-                "User-Agent": "Mozilla/5.0 PortfolioTracker/1.0",
-                "Accept": "application/json,text/plain,*/*"
-              }
-            });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            return response.json();
-          }
-
-          async function fetchYahooQuote(symbol) {
-            const encoded = encodeURIComponent(symbol);
-            const data = await fetchJson(`https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?range=1d&interval=1m`);
-            const result = data?.chart?.result?.[0];
-            const meta = result?.meta;
-            if (!meta) throw new Error("Yahoo quote missing metadata");
-
-            const price = toNumber(meta.regularMarketPrice ?? meta.postMarketPrice ?? meta.previousClose);
-            const previousClose = toNumber(meta.previousClose ?? meta.chartPreviousClose);
-            if (price == null || previousClose == null) throw new Error("Yahoo quote missing price");
-            const change = price - previousClose;
-            const changePercent = previousClose ? (change / previousClose) * 100 : 0;
-
-            return {
-              symbol: meta.symbol || symbol,
-              price,
-              previousClose,
-              change,
-              changePercent,
-              currency: meta.currency || "USD",
-              exchange: meta.exchangeName || meta.fullExchangeName || "",
-              marketTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : null,
-              source: "Yahoo"
-            };
-          }
-
-          async function fetchFxRate() {
-            for (const symbol of ["TWD=X", "USDTWD=X"]) {
-              try {
-                const quote = await fetchYahooQuote(symbol);
-                if (quote.price) {
-                  return {
-                    rate: quote.price,
-                    source: "Yahoo",
-                    symbol,
-                    updatedAt: new Date().toISOString()
-                  };
-                }
-              } catch {}
+            function toNumber(value, fallback = null) {
+              const n = Number(value);
+              return Number.isFinite(n) ? n : fallback;
             }
-            return {
-              rate: 31.85,
-              source: "fallback",
-              symbol: "USD/TWD",
-              updatedAt: new Date().toISOString()
+
+            async function fetchJson(url) {
+              const response = await fetch(url, {
+                headers: {
+                  "User-Agent": "Mozilla/5.0 PortfolioTracker/1.0",
+                  "Accept": "application/json,text/plain,*/*"
+                }
+              });
+              if (!response.ok) throw new Error(`HTTP ${response.status}`);
+              return response.json();
+            }
+
+            async function fetchYahooQuote(symbol) {
+              const encoded = encodeURIComponent(symbol);
+              const data = await fetchJson(`https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?range=1d&interval=1m`);
+              const result = data?.chart?.result?.[0];
+              const meta = result?.meta;
+              if (!meta) throw new Error("Yahoo quote missing metadata");
+
+              const price = toNumber(meta.regularMarketPrice ?? meta.postMarketPrice ?? meta.previousClose);
+              const previousClose = toNumber(meta.previousClose ?? meta.chartPreviousClose);
+              if (price == null || previousClose == null) throw new Error("Yahoo quote missing price");
+              const change = price - previousClose;
+              const changePercent = previousClose ? (change / previousClose) * 100 : 0;
+
+              return {
+                symbol: meta.symbol || symbol,
+                price,
+                previousClose,
+                change,
+                changePercent,
+                currency: meta.currency || "USD",
+                exchange: meta.exchangeName || meta.fullExchangeName || "",
+                marketTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : null,
+                source: "Yahoo"
+              };
+            }
+
+            async function fetchFxRate() {
+              for (const symbol of ["TWD=X", "USDTWD=X"]) {
+                try {
+                  const quote = await fetchYahooQuote(symbol);
+                  if (quote.price) {
+                    return {
+                      rate: quote.price,
+                      source: "Yahoo",
+                      symbol,
+                      updatedAt: new Date().toISOString()
+                    };
+                  }
+                } catch {}
+              }
+              return existing.fx || {
+                rate: 31.85,
+                source: "fallback",
+                symbol: "USD/TWD",
+                updatedAt: new Date().toISOString()
+              };
+            }
+
+            const settled = await Promise.allSettled(symbols.map(fetchYahooQuote));
+            const quotes = { ...(existing.quotes || {}) };
+            const errors = {};
+            settled.forEach((result, index) => {
+              const symbol = symbols[index];
+              if (result.status === "fulfilled") quotes[symbol] = result.value;
+              else errors[symbol] = result.reason?.message || "quote unavailable";
+            });
+
+            const output = {
+              updatedAt: new Date().toISOString(),
+              source: "Yahoo via GitHub Actions",
+              quotes,
+              fx: await fetchFxRate(),
+              errors
             };
-          }
 
-          const settled = await Promise.allSettled(symbols.map(fetchYahooQuote));
-          const quotes = {};
-          const errors = {};
-          settled.forEach((result, index) => {
-            const symbol = symbols[index];
-            if (result.status === "fulfilled") quotes[symbol] = result.value;
-            else errors[symbol] = result.reason?.message || "quote unavailable";
+            await fs.writeFile("quotes.json", JSON.stringify(output, null, 2) + "\n", "utf8");
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
           });
-
-          const output = {
-            updatedAt: new Date().toISOString(),
-            source: "Yahoo via GitHub Actions",
-            quotes,
-            fx: await fetchFxRate(),
-            errors
-          };
-
-          await fs.writeFile("quotes.json", JSON.stringify(output, null, 2) + "\n", "utf8");
           NODE
 
       - name: Commit quote update
