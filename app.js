@@ -178,11 +178,6 @@ function bindEvents() {
 
 async function loadState({ silent = false } = {}) {
   try {
-    const cached = localStorage.getItem(LOCAL_STATE_KEY);
-    if (cached) {
-      state = normalizeState(JSON.parse(cached));
-      return true;
-    }
     const response = await fetch(`${STATIC_STATE_URL}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     state = normalizeState(await response.json());
@@ -257,11 +252,33 @@ function startStateSync() {
 }
 
 async function syncLatestState({ renderAfter = true, force = false } = {}) {
-  return true;
+  if (!force && isUserEditing()) return false;
+  const previousSnapshot = JSON.stringify({
+    savedAt: state.savedAt || "",
+    cash: state.cash,
+    holdings: state.holdings.map((holding) => ({
+      symbol: holding.symbol,
+      shares: holding.shares,
+    })),
+  });
+  const ok = await loadState({ silent: true });
+  const nextSnapshot = JSON.stringify({
+    savedAt: state.savedAt || "",
+    cash: state.cash,
+    holdings: state.holdings.map((holding) => ({
+      symbol: holding.symbol,
+      shares: holding.shares,
+    })),
+  });
+  if (ok && renderAfter && nextSnapshot !== previousSnapshot) {
+    render();
+    showToast("已同步本機最新持股");
+  }
+  return ok;
 }
 
 async function loadNetworkInfo() {
-  dom.lanHint.textContent = "GitHub Pages 網頁版；股價檔每 5 分鐘更新，頁面也會自動刷新。";
+  dom.lanHint.textContent = "GitHub Pages 網頁版；會同步本機最新持股，股價每 5 分鐘更新。";
 }
 
 async function logout() {

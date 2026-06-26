@@ -33,7 +33,12 @@ jobs:
           const fs = require("node:fs/promises");
 
           (async () => {
-            const symbols = ["NVDA", "TSM", "BOXX", "TLT", "VOO", "QQQ", "GLW", "MU"];
+            const state = await fs.readFile("portfolio-state.json", "utf8")
+              .then((text) => JSON.parse(text))
+              .catch(() => ({ holdings: [] }));
+            const symbols = [...new Set((state.holdings || [])
+              .map((holding) => String(holding.symbol || "").trim().toUpperCase())
+              .filter(Boolean))];
             const existing = await fs.readFile("quotes.json", "utf8")
               .then((text) => JSON.parse(text))
               .catch(() => ({ quotes: {}, fx: null }));
