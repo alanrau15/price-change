@@ -1,6 +1,6 @@
 {
   "cash": 2197.18,
-  "usdTwdRate": 31.842,
+  "usdTwdRate": 31.874,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
@@ -8,13 +8,13 @@
       "shares": 4933,
       "quote": {
         "symbol": "NVDA",
-        "price": 194.61,
-        "previousClose": 195.74,
-        "change": -1.1299999999999955,
-        "changePercent": -0.5772964136098884,
+        "price": 194.11,
+        "previousClose": 192.53,
+        "change": 1.5800000000000125,
+        "changePercent": 0.8206513270659183,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-06-26T18:01:53.000Z",
+        "marketTime": "2026-06-29T15:23:54.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -25,13 +25,13 @@
       "shares": 138,
       "quote": {
         "symbol": "TSM",
-        "price": 432.77,
-        "previousClose": 434.99,
-        "change": -2.2200000000000273,
-        "changePercent": -0.510356559920924,
+        "price": 439.011,
+        "previousClose": 432.35,
+        "change": 6.661000000000001,
+        "changePercent": 1.5406499363941255,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-06-26T18:01:53.000Z",
+        "marketTime": "2026-06-29T15:23:57.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -42,13 +42,13 @@
       "shares": 70,
       "quote": {
         "symbol": "BOXX",
-        "price": 117.145,
-        "previousClose": 117.12,
-        "change": 0.024999999999991473,
-        "changePercent": 0.021345628415293267,
+        "price": 117.14,
+        "previousClose": 117.13,
+        "change": 0.010000000000005116,
+        "changePercent": 0.008537522411000698,
         "currency": "USD",
         "exchange": "BTS",
-        "marketTime": "2026-06-26T18:01:26.000Z",
+        "marketTime": "2026-06-29T15:23:35.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -59,13 +59,13 @@
       "shares": 317,
       "quote": {
         "symbol": "TLT",
-        "price": 87.293,
-        "previousClose": 87.35,
-        "change": -0.05699999999998795,
-        "changePercent": -0.06525472238121117,
+        "price": 87.38,
+        "previousClose": 87.36,
+        "change": 0.01999999999999602,
+        "changePercent": 0.02289377289376834,
         "currency": "USD",
         "exchange": "NGM",
-        "marketTime": "2026-06-26T18:01:43.000Z",
+        "marketTime": "2026-06-29T15:23:56.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -76,13 +76,13 @@
       "shares": 135.1333,
       "quote": {
         "symbol": "VOO",
-        "price": 674.4,
-        "previousClose": 673.748,
-        "change": 0.65199999999993,
-        "changePercent": 0.09677208689301192,
+        "price": 677.247,
+        "previousClose": 670.26,
+        "change": 6.986999999999966,
+        "changePercent": 1.0424312953182298,
         "currency": "USD",
         "exchange": "PCX",
-        "marketTime": "2026-06-26T18:01:54.000Z",
+        "marketTime": "2026-06-29T15:23:44.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -93,13 +93,13 @@
       "shares": 30,
       "quote": {
         "symbol": "QQQ",
-        "price": 711.55,
-        "previousClose": 716.38,
-        "change": -4.830000000000041,
-        "changePercent": -0.674223177643156,
+        "price": 714.91,
+        "previousClose": 706.52,
+        "change": 8.389999999999986,
+        "changePercent": 1.1875106154107438,
         "currency": "USD",
         "exchange": "NGM",
-        "marketTime": "2026-06-26T18:01:53.000Z",
+        "marketTime": "2026-06-29T15:23:54.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -110,13 +110,13 @@
       "shares": 100,
       "quote": {
         "symbol": "GLW",
-        "price": 216.16,
-        "previousClose": 228.01,
-        "change": -11.849999999999994,
-        "changePercent": -5.197140476294897,
+        "price": 238.51,
+        "previousClose": 221.05,
+        "change": 17.45999999999998,
+        "changePercent": 7.898665460303089,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-06-26T18:01:53.000Z",
+        "marketTime": "2026-06-29T15:23:54.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -127,13 +127,13 @@
       "shares": 20,
       "quote": {
         "symbol": "MU",
-        "price": 1159.748,
-        "previousClose": 1213.56,
-        "change": -53.8119999999999,
-        "changePercent": -4.434226573057773,
+        "price": 1068.6,
+        "previousClose": 1132.33,
+        "change": -63.73000000000002,
+        "changePercent": -5.62821792233713,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-06-26T18:01:53.000Z",
+        "marketTime": "2026-06-29T15:23:54.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -1360,8 +1360,8 @@
       "createdAt": "2026-06-26T17:05:37.297Z"
     }
   ],
-  "savedAt": "2026-06-26T18:01:55.657Z",
+  "savedAt": "2026-06-29T15:23:58.222Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-06-26T18:01:55.652Z",
+  "fxUpdatedAt": "2026-06-29T15:23:55.145Z",
   "fxSource": "Yahoo"
 }
