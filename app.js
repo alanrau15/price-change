@@ -307,10 +307,12 @@ async function refreshQuotes({ quiet, automatic = false }) {
 
     state.holdings = state.holdings.map((holding) => {
       const quote = quoteData.quotes?.[holding.symbol];
-      return quote ? { ...holding, quote } : holding;
+      return quote && shouldUseQuote(quote, holding.quote, quoteData.updatedAt)
+        ? { ...holding, quote }
+        : holding;
     });
 
-    if (quoteData.fx?.rate) {
+    if (quoteData.fx?.rate && shouldUseTimestamp(quoteData.fx.updatedAt || quoteData.updatedAt, state.fxUpdatedAt)) {
       state.usdTwdRate = quoteData.fx.rate;
       state.fxUpdatedAt = quoteData.fx.updatedAt || quoteData.updatedAt;
       state.fxSource = quoteData.fx.source || quoteData.source;
@@ -696,6 +698,25 @@ function blurOnEnter(event) {
 function isUserEditing() {
   const element = document.activeElement;
   return Boolean(element && (element.matches?.("input, textarea") || element.isContentEditable));
+}
+
+function shouldUseQuote(nextQuote, currentQuote = {}, fallbackUpdatedAt = "") {
+  const nextTime = parseTimestamp(nextQuote?.marketTime || fallbackUpdatedAt);
+  const currentTime = parseTimestamp(currentQuote?.marketTime);
+  return shouldUseTimestamp(nextTime, currentTime);
+}
+
+function shouldUseTimestamp(nextValue, currentValue) {
+  const nextTime = typeof nextValue === "number" ? nextValue : parseTimestamp(nextValue);
+  const currentTime = typeof currentValue === "number" ? currentValue : parseTimestamp(currentValue);
+  if (!currentTime) return true;
+  if (!nextTime) return true;
+  return nextTime >= currentTime;
+}
+
+function parseTimestamp(value) {
+  const timestamp = Date.parse(value || "");
+  return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
 function parseNumber(value, fallback) {
