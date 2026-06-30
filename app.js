@@ -16,8 +16,8 @@ let isRefreshing = false;
 const PASSWORD_HASH = "21039d52a7306ee5b6b7b43512d78cde1da852f5679f401459dd757b42b23a57";
 const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const STATE_SYNC_MS = 30 * 1000;
-const STATIC_STATE_URL = "portfolio-state.json";
-const QUOTES_URL = "quotes.json";
+const STATIC_STATE_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-pages/portfolio-state.json";
+const QUOTES_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-pages/quotes.json";
 const LOCAL_STATE_KEY = "priceChangePortfolioState";
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
