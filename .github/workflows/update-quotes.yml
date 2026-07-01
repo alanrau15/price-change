@@ -85,6 +85,55 @@ jobs:
               };
             }
 
+            function parseMarketNumber(value, fallback = null) {
+              if (value == null || value === "") return fallback;
+              const n = Number(String(value).replace(/[,$%+\s]/g, ""));
+              return Number.isFinite(n) ? n : fallback;
+            }
+
+            async function fetchNasdaqQuote(symbol) {
+              const encoded = encodeURIComponent(symbol);
+              const errors = [];
+              for (const assetClass of ["stocks", "etf"]) {
+                try {
+                  const data = await fetchJson(`https://api.nasdaq.com/api/quote/${encoded}/info?assetclass=${assetClass}`);
+                  const item = data?.data;
+                  const primary = item?.primaryData;
+                  if (!primary) throw new Error("Nasdaq quote missing data");
+                  const price = parseMarketNumber(primary.lastSalePrice, null);
+                  const change = parseMarketNumber(primary.netChange, 0);
+                  const changePercent = parseMarketNumber(primary.percentageChange, 0);
+                  if (price == null) throw new Error("Nasdaq quote missing price");
+                  return {
+                    symbol: item.symbol || symbol,
+                    price,
+                    previousClose: price - change,
+                    change,
+                    changePercent,
+                    currency: "USD",
+                    exchange: item.exchange || "",
+                    marketTime: new Date().toISOString(),
+                    source: "Nasdaq"
+                  };
+                } catch (error) {
+                  errors.push(`${assetClass}: ${error.message}`);
+                }
+              }
+              throw new Error(errors.join("; "));
+            }
+
+            async function fetchQuote(symbol) {
+              try {
+                return await fetchYahooQuote(symbol);
+              } catch (yahooError) {
+                try {
+                  return await fetchNasdaqQuote(symbol);
+                } catch (nasdaqError) {
+                  throw new Error(`Yahoo ${yahooError.message}; Nasdaq ${nasdaqError.message}`);
+                }
+              }
+            }
+
             async function fetchFxRate() {
               for (const symbol of ["TWD=X", "USDTWD=X"]) {
                 try {
@@ -107,7 +156,7 @@ jobs:
               };
             }
 
-            const settled = await Promise.allSettled(symbols.map(fetchYahooQuote));
+            const settled = await Promise.allSettled(symbols.map(fetchQuote));
             const quotes = { ...(existing.quotes || {}) };
             const errors = {};
             settled.forEach((result, index) => {
