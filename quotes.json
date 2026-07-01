@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-07-01T08:41:51.098Z",
-  "source": "Yahoo via local Portfolio Tracker",
+  "updatedAt": "2026-07-01T10:56:43.232Z",
+  "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
@@ -11,8 +11,7 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-06-30T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "TSM": {
       "symbol": "TSM",
@@ -23,8 +22,7 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-06-30T20:00:02.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "BOXX": {
       "symbol": "BOXX",
@@ -35,8 +33,7 @@
       "currency": "USD",
       "exchange": "BTS",
       "marketTime": "2026-06-30T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "TLT": {
       "symbol": "TLT",
@@ -47,8 +44,7 @@
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-06-30T20:00:00.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "VOO": {
       "symbol": "VOO",
@@ -59,8 +55,7 @@
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-06-30T20:00:00.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "QQQ": {
       "symbol": "QQQ",
@@ -71,8 +66,7 @@
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-06-30T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "GLW": {
       "symbol": "GLW",
@@ -83,8 +77,7 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-06-30T20:04:41.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "MU": {
       "symbol": "MU",
@@ -95,15 +88,14 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-06-30T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     }
   },
   "fx": {
-    "rate": 31.831,
+    "rate": 31.826,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-07-01T08:41:51.094Z"
+    "updatedAt": "2026-07-01T10:56:43.316Z"
   },
   "errors": {}
 }
