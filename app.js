@@ -122,6 +122,10 @@ function cacheDom() {
     "historyCount",
     "latestHistoryTotal",
     "historyChange",
+    "historyDrawdown",
+    "historyChange7d",
+    "historyChange30d",
+    "historyChange90d",
     "historyChart",
     "historyBody",
     "changeLog",
@@ -707,6 +711,10 @@ function renderHoldings(summary) {
 
 function renderHistory() {
   const rows = [...state.assetHistory].sort((a, b) => a.date.localeCompare(b.date));
+  const rowsWithChanges = rows.map((row, index) => ({
+    ...row,
+    displayDayChange: index === 0 ? null : Number(row.total) - Number(rows[index - 1].total),
+  }));
   dom.historyCount.textContent = `${rows.length} 筆`;
   const latest = rows.at(-1);
   const first = rows[0];
@@ -714,17 +722,74 @@ function renderHistory() {
   const change = latest && first ? latest.total - first.total : 0;
   dom.historyChange.textContent = rows.length > 1 ? `${formatSignedMoney(change)} / ${formatSignedPercent(first.total ? (change / first.total) * 100 : 0)}` : "-";
   setTrendClass(dom.historyChange, change);
+  renderHistoryTrendStats(rows);
 
   dom.historyChart.innerHTML = renderHistoryChart(rows);
-  dom.historyBody.innerHTML = rows.slice().reverse().map((row) => `
+  dom.historyBody.innerHTML = rowsWithChanges.slice().reverse().map((row) => `
     <tr>
       <td>${escapeHtml(row.date)}</td>
       <td>${formatMoney(row.total)}</td>
+      <td class="${trendClass(row.displayDayChange)}">${row.displayDayChange == null ? "-" : formatSignedMoney(row.displayDayChange)}</td>
       <td>${formatMoney(row.securities)}</td>
       <td>${formatMoney(row.cash)}</td>
       <td>${row.recordedAt ? formatDateTime(row.recordedAt) : "-"}</td>
     </tr>
-  `).join("") || `<tr><td colspan="5" class="empty-row">尚未有紀錄</td></tr>`;
+  `).join("") || `<tr><td colspan="6" class="empty-row">尚未有紀錄</td></tr>`;
+}
+
+function renderHistoryTrendStats(rows) {
+  const latest = rows.at(-1);
+  if (!latest) {
+    [
+      dom.historyDrawdown,
+      dom.historyChange7d,
+      dom.historyChange30d,
+      dom.historyChange90d,
+    ].forEach((element) => {
+      element.textContent = "-";
+      setTrendClass(element, 0);
+    });
+    return;
+  }
+
+  const peak = rows.reduce((best, row) => (Number(row.total) > Number(best.total) ? row : best), rows[0]);
+  const drawdown = Number(latest.total) - Number(peak.total);
+  dom.historyDrawdown.textContent = drawdown < 0
+    ? `${formatSignedMoney(drawdown)} / ${formatSignedPercent((drawdown / peak.total) * 100)}`
+    : "$0.00 / 0.00%";
+  setTrendClass(dom.historyDrawdown, drawdown);
+
+  renderPeriodChange(dom.historyChange7d, getPeriodChange(rows, 7));
+  renderPeriodChange(dom.historyChange30d, getPeriodChange(rows, 30));
+  renderPeriodChange(dom.historyChange90d, getPeriodChange(rows, 90));
+}
+
+function renderPeriodChange(element, period) {
+  if (!period) {
+    element.textContent = "-";
+    setTrendClass(element, 0);
+    return;
+  }
+  element.textContent = `${formatSignedMoney(period.change)} / ${formatSignedPercent(period.changePercent)}`;
+  setTrendClass(element, period.change);
+}
+
+function getPeriodChange(rows, days) {
+  const latest = rows.at(-1);
+  if (!latest) return null;
+
+  const targetDate = addDays(parseIsoDate(latest.date), -days);
+  const base = rows
+    .filter((row) => parseIsoDate(row.date) <= targetDate)
+    .at(-1);
+  if (!base) return null;
+
+  const change = Number(latest.total) - Number(base.total);
+  return {
+    baseDate: base.date,
+    change,
+    changePercent: base.total ? (change / Number(base.total)) * 100 : 0,
+  };
 }
 
 function renderHistoryChart(rows) {
@@ -972,6 +1037,17 @@ function taipeiDate(date) {
     month: "2-digit",
     day: "2-digit",
   }).format(date);
+}
+
+function parseIsoDate(value) {
+  const [year, month, day] = String(value).split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function addDays(date, days) {
+  const next = new Date(date);
+  next.setUTCDate(next.getUTCDate() + days);
+  return next;
 }
 
 function trendClass(value) {
