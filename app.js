@@ -18,6 +18,8 @@ const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const STATE_SYNC_MS = 30 * 1000;
 const STATIC_STATE_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-pages/portfolio-state.json";
 const QUOTES_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-pages/quotes.json";
+const JINA_READER_PREFIX = "https://r.jina.ai/http://";
+const YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart";
 const LOCAL_STATE_KEY = "priceChangePortfolioState";
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
@@ -303,7 +305,7 @@ async function refreshQuotes({ quiet, automatic = false }) {
   dom.refreshBtn.disabled = true;
   dom.refreshBtn.textContent = automatic ? "自動更新中" : "更新中";
   try {
-    const quoteData = await fetchJson(`${QUOTES_URL}?t=${Date.now()}`);
+    const quoteData = await fetchQuoteData(symbols);
 
     state.holdings = state.holdings.map((holding) => {
       const quote = quoteData.quotes?.[holding.symbol];
@@ -340,6 +342,171 @@ async function refreshQuotes({ quiet, automatic = false }) {
 
 async function backfillHistory() {
   return;
+}
+
+async function fetchQuoteData(symbols) {
+  const fallback = await fetchJson(`${QUOTES_URL}?t=${Date.now()}`).catch((error) => ({
+    quotes: {},
+    fx: null,
+    errors: { quotesJson: error.message },
+  }));
+
+  try {
+    const live = await fetchLiveQuoteData(symbols);
+    if (Object.keys(live.quotes).length) {
+      return {
+        ...fallback,
+        ...live,
+        quotes: { ...(fallback.quotes || {}), ...live.quotes },
+        errors: { ...(fallback.errors || {}), ...(live.errors || {}) },
+      };
+    }
+  } catch (error) {
+    fallback.errors = { ...(fallback.errors || {}), liveRefresh: error.message };
+  }
+
+  if (Object.keys(fallback.quotes || {}).length) return fallback;
+  throw new Error(fallback.errors?.liveRefresh || fallback.errors?.quotesJson || "quote unavailable");
+}
+
+async function fetchLiveQuoteData(symbols) {
+  const settled = await Promise.allSettled(symbols.map((symbol) => fetchYahooQuoteViaJina(symbol)));
+  const quotes = {};
+  const errors = {};
+
+  settled.forEach((result, index) => {
+    const symbol = symbols[index];
+    if (result.status === "fulfilled") quotes[symbol] = result.value;
+    else errors[symbol] = result.reason?.message || "live quote unavailable";
+  });
+
+  const fx = await fetchFxViaJina().catch((error) => {
+    errors["USD/TWD"] = error.message;
+    return null;
+  });
+
+  return {
+    updatedAt: new Date().toISOString(),
+    source: "Yahoo via r.jina.ai live",
+    quotes,
+    fx,
+    errors,
+  };
+}
+
+async function fetchYahooQuoteViaJina(symbol) {
+  try {
+    const encoded = encodeURIComponent(symbol);
+    const data = await fetchJinaJson(`${YAHOO_CHART_URL}/${encoded}?range=1d&interval=1m&_=${Date.now()}`);
+    return normalizeYahooChartQuote(symbol, data);
+  } catch (yahooError) {
+    try {
+      return await fetchNasdaqQuoteViaJina(symbol);
+    } catch (nasdaqError) {
+      throw new Error(`${symbol}: Yahoo ${yahooError.message}; Nasdaq ${nasdaqError.message}`);
+    }
+  }
+}
+
+async function fetchNasdaqQuoteViaJina(symbol) {
+  const errors = [];
+  for (const assetClass of ["stocks", "etf"]) {
+    try {
+      const encoded = encodeURIComponent(symbol);
+      const data = await fetchJinaJson(`https://api.nasdaq.com/api/quote/${encoded}/info?assetclass=${assetClass}&_=${Date.now()}`);
+      return normalizeNasdaqQuote(symbol, data);
+    } catch (error) {
+      errors.push(`${assetClass}: ${error.message}`);
+    }
+  }
+  throw new Error(errors.join("; "));
+}
+
+async function fetchFxViaJina() {
+  for (const symbol of ["TWD=X", "USDTWD=X"]) {
+    try {
+      const quote = await fetchYahooQuoteViaJina(symbol);
+      if (quote.price) {
+        return {
+          rate: quote.price,
+          source: quote.source,
+          symbol,
+          updatedAt: quote.marketTime || new Date().toISOString(),
+        };
+      }
+    } catch {}
+  }
+  throw new Error("FX unavailable");
+}
+
+async function fetchJinaJson(url) {
+  const response = await fetch(`${JINA_READER_PREFIX}${url}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`live HTTP ${response.status}`);
+  const text = await response.text();
+  return JSON.parse(extractJsonFromJina(text));
+}
+
+function extractJsonFromJina(text) {
+  const marker = "Markdown Content:";
+  const markerIndex = text.indexOf(marker);
+  const source = markerIndex >= 0 ? text.slice(markerIndex + marker.length) : text;
+  const firstBrace = source.indexOf("{");
+  const lastBrace = source.lastIndexOf("}");
+  if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error("live quote response missing JSON");
+  return source.slice(firstBrace, lastBrace + 1);
+}
+
+function normalizeYahooChartQuote(symbol, data) {
+  const result = data?.chart?.result?.[0];
+  const meta = result?.meta;
+  if (!meta) throw new Error(`${symbol} live quote missing metadata`);
+
+  const price = parseNumber(meta.regularMarketPrice ?? meta.postMarketPrice ?? meta.previousClose, null);
+  const previousClose = parseNumber(meta.previousClose ?? meta.chartPreviousClose, null);
+  if (price == null || previousClose == null) throw new Error(`${symbol} live quote missing price`);
+
+  const change = price - previousClose;
+  const changePercent = previousClose ? (change / previousClose) * 100 : 0;
+  return {
+    symbol: meta.symbol || symbol,
+    price,
+    previousClose,
+    change,
+    changePercent,
+    currency: meta.currency || "USD",
+    exchange: meta.exchangeName || meta.fullExchangeName || "",
+    marketTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
+    source: "Yahoo via r.jina.ai",
+  };
+}
+
+function normalizeNasdaqQuote(symbol, data) {
+  const item = data?.data;
+  const primary = item?.primaryData;
+  if (!primary) throw new Error(`${symbol} Nasdaq quote missing data`);
+
+  const price = parseMarketNumber(primary.lastSalePrice, null);
+  const change = parseMarketNumber(primary.netChange, 0);
+  const changePercent = parseMarketNumber(primary.percentageChange, 0);
+  if (price == null) throw new Error(`${symbol} Nasdaq quote missing price`);
+
+  return {
+    symbol: item.symbol || symbol,
+    price,
+    previousClose: price - change,
+    change,
+    changePercent,
+    currency: "USD",
+    exchange: item.exchange || "",
+    marketTime: new Date().toISOString(),
+    source: "Nasdaq via r.jina.ai",
+  };
+}
+
+function parseMarketNumber(value, fallback = null) {
+  if (value == null || value === "") return fallback;
+  const number = Number(String(value).replace(/[,$%+\s]/g, ""));
+  return Number.isFinite(number) ? number : fallback;
 }
 
 async function fetchJson(url) {
