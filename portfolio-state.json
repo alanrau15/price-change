@@ -1,6 +1,6 @@
 {
-  "cash": 2197.18,
-  "usdTwdRate": 31.827,
+  "cash": 4364.71,
+  "usdTwdRate": 31.831,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
@@ -1519,10 +1519,19 @@
       "previousValue": 4933,
       "nextValue": 4920,
       "createdAt": "2026-07-01T08:38:58.469Z"
+    },
+    {
+      "id": "487f3c64-5d52-481c-816e-7d922ae168f7",
+      "type": "cash_change",
+      "label": "",
+      "symbol": "",
+      "previousValue": 2197.18,
+      "nextValue": 4364.71,
+      "createdAt": "2026-07-01T08:39:20.248Z"
     }
   ],
-  "savedAt": "2026-07-01T08:38:58.471Z",
+  "savedAt": "2026-07-01T08:39:24.970Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-07-01T08:36:50.955Z",
+  "fxUpdatedAt": "2026-07-01T08:39:24.965Z",
   "fxSource": "Yahoo"
 }
