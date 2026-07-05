@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T15:00:56.334Z",
+  "updatedAt": "2026-07-05T18:48:44.450Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -38,9 +38,9 @@
     "TLT": {
       "symbol": "TLT",
       "price": 85.51,
-      "previousClose": 85.52,
-      "change": -0.009999999999990905,
-      "changePercent": -0.011693171188015558,
+      "previousClose": 85.520004,
+      "change": -0.010003999999995017,
+      "changePercent": -0.011697847909355824,
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-07-02T20:00:01.000Z",
@@ -59,10 +59,10 @@
     },
     "QQQ": {
       "symbol": "QQQ",
-      "price": 712.6,
-      "previousClose": 725.17,
-      "change": -12.569999999999936,
-      "changePercent": -1.7333866541638425,
+      "price": 712.6044,
+      "previousClose": 725.1656,
+      "change": -12.561199999999985,
+      "changePercent": -1.7321836557056738,
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-07-02T20:00:01.000Z",
@@ -95,7 +95,7 @@
     "rate": 31.925,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-07-05T15:00:56.400Z"
+    "updatedAt": "2026-07-05T18:48:44.525Z"
   },
   "errors": {}
 }
