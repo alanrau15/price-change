@@ -2035,9 +2035,27 @@
       "previousValue": 4364.71,
       "nextValue": 9274.44,
       "createdAt": "2026-07-13T05:00:31.839Z"
+    },
+    {
+      "id": "c4b031be-039c-4ad8-97df-e5f5ead31fae",
+      "type": "cash_change",
+      "label": "",
+      "symbol": "",
+      "previousValue": 9274.44,
+      "nextValue": 927,
+      "createdAt": "2026-07-13T05:00:38.015Z"
+    },
+    {
+      "id": "a1734332-7271-45a7-82a8-d537860d9771",
+      "type": "cash_change",
+      "label": "",
+      "symbol": "",
+      "previousValue": 927,
+      "nextValue": 9274.44,
+      "createdAt": "2026-07-13T05:00:41.365Z"
     }
   ],
-  "savedAt": "2026-07-13T05:00:31.840Z",
+  "savedAt": "2026-07-13T05:00:41.367Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-07-13T05:00:31.159Z",
   "fxSource": "Yahoo"
