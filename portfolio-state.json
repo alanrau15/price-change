@@ -1,11 +1,11 @@
 {
   "cash": 9274.44,
-  "usdTwdRate": 32.044,
+  "usdTwdRate": 32.069,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
       "symbol": "NVDA",
-      "shares": 4920,
+      "shares": 4820,
       "quote": {
         "symbol": "NVDA",
         "price": 210.96,
@@ -2053,10 +2053,19 @@
       "previousValue": 927,
       "nextValue": 9274.44,
       "createdAt": "2026-07-13T05:00:41.365Z"
+    },
+    {
+      "id": "b631c8de-bfa0-4fb6-95e7-79dd96ab83d3",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "NVDA",
+      "previousValue": 4920,
+      "nextValue": 4820,
+      "createdAt": "2026-07-13T05:01:20.922Z"
     }
   ],
-  "savedAt": "2026-07-13T05:00:41.367Z",
+  "savedAt": "2026-07-13T05:01:23.529Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-07-13T05:00:31.159Z",
+  "fxUpdatedAt": "2026-07-13T05:01:23.393Z",
   "fxSource": "Yahoo"
 }
