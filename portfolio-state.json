@@ -73,7 +73,7 @@
     {
       "id": "3efb8a18-0b38-4277-8c50-f1765b73c773",
       "symbol": "VOO",
-      "shares": 135.1333,
+      "shares": 135.407,
       "quote": {
         "symbol": "VOO",
         "price": 693.86,
@@ -2024,9 +2024,18 @@
       "previousValue": 100,
       "nextValue": 107,
       "createdAt": "2026-07-13T04:58:59.877Z"
+    },
+    {
+      "id": "270812bb-653c-42bb-b907-adba10d8ae2f",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "VOO",
+      "previousValue": 135.1333,
+      "nextValue": 135.407,
+      "createdAt": "2026-07-13T04:59:13.467Z"
     }
   ],
-  "savedAt": "2026-07-13T04:58:59.879Z",
+  "savedAt": "2026-07-13T04:59:13.469Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-07-13T04:55:31.157Z",
   "fxSource": "Yahoo"
