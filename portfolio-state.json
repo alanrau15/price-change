@@ -107,7 +107,7 @@
     {
       "id": "614f4886-df13-4530-baf8-15476526feaf",
       "symbol": "GLW",
-      "shares": 100,
+      "shares": 107,
       "quote": {
         "symbol": "GLW",
         "price": 190.89,
@@ -2015,9 +2015,18 @@
       "previousValue": 20,
       "nextValue": 40,
       "createdAt": "2026-07-13T04:58:49.743Z"
+    },
+    {
+      "id": "ef8422b3-4cfc-4fc2-885d-97b233aebc20",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "GLW",
+      "previousValue": 100,
+      "nextValue": 107,
+      "createdAt": "2026-07-13T04:58:59.877Z"
     }
   ],
-  "savedAt": "2026-07-13T04:58:49.746Z",
+  "savedAt": "2026-07-13T04:58:59.879Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-07-13T04:55:31.157Z",
   "fxSource": "Yahoo"
