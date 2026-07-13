@@ -12,6 +12,9 @@ let saveTimer = null;
 let autoRefreshTimer = null;
 let stateSyncTimer = null;
 let isRefreshing = false;
+let githubSyncTimer = null;
+let githubSyncInFlight = false;
+let githubSyncPending = false;
 
 const PASSWORD_HASH = "21039d52a7306ee5b6b7b43512d78cde1da852f5679f401459dd757b42b23a57";
 const AUTO_REFRESH_MS = 5 * 60 * 1000;
@@ -21,6 +24,11 @@ const QUOTES_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-
 const JINA_READER_PREFIX = "https://r.jina.ai/http://";
 const YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart";
 const LOCAL_STATE_KEY = "priceChangePortfolioState";
+const GITHUB_TOKEN_KEY = "priceChangeGithubToken";
+const GITHUB_OWNER = "alanrau15";
+const GITHUB_REPO = "price-change";
+const GITHUB_BRANCH = "gh-pages";
+const GITHUB_STATE_PATH = "portfolio-state.json";
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -91,6 +99,7 @@ async function init() {
   if (!(await ensureUnlocked())) return;
   cacheDom();
   bindEvents();
+  updateGithubSyncStatus();
   await loadState();
   render();
   refreshQuotes({ quiet: true });
@@ -111,6 +120,10 @@ function cacheDom() {
     "symbolInput",
     "sharesInput",
     "cashInput",
+    "githubTokenInput",
+    "githubTokenSaveBtn",
+    "githubTokenClearBtn",
+    "githubSyncStatus",
     "totalUsd",
     "totalTwd",
     "fxRate",
@@ -141,6 +154,8 @@ function bindEvents() {
   dom.copyBtn.addEventListener("click", copyHoldings);
   dom.addBtn.addEventListener("click", () => addHolding());
   dom.recordBtn.addEventListener("click", () => recordCurrentSnapshot());
+  dom.githubTokenSaveBtn.addEventListener("click", () => saveGithubToken());
+  dom.githubTokenClearBtn.addEventListener("click", () => clearGithubToken());
 
   dom.cashInput.addEventListener("change", async () => {
     await syncLatestState({ renderAfter: false, force: true });
@@ -149,7 +164,7 @@ function bindEvents() {
     if (!numbersEqual(previous, next)) {
       state.cash = next;
       logChange("cash_change", "", "", previous, next);
-      await saveState();
+      await saveState({ syncToGithub: true, reason: "更新現金" });
       render();
       showToast("現金已儲存");
     } else {
@@ -235,9 +250,10 @@ function saveSoon() {
   saveTimer = setTimeout(saveState, 300);
 }
 
-async function saveState() {
+async function saveState({ syncToGithub = false, reason = "更新投資總表" } = {}) {
   state.savedAt = new Date().toISOString();
   localStorage.setItem(LOCAL_STATE_KEY, JSON.stringify(state));
+  if (syncToGithub) scheduleGithubSync(reason);
   return true;
 }
 
@@ -252,7 +268,7 @@ function startAutoRefresh() {
 function startStateSync() {
   if (stateSyncTimer) clearInterval(stateSyncTimer);
   stateSyncTimer = setInterval(() => {
-    if (document.hidden || isRefreshing || isUserEditing()) return;
+    if (document.hidden || isRefreshing || isUserEditing() || hasPendingGithubSync()) return;
     syncLatestState({ renderAfter: true });
   }, STATE_SYNC_MS);
 }
@@ -284,7 +300,7 @@ async function syncLatestState({ renderAfter = true, force = false } = {}) {
 }
 
 async function loadNetworkInfo() {
-  dom.lanHint.textContent = "GitHub Pages 網頁版；會同步本機最新持股，股價每 5 分鐘更新。";
+  dom.lanHint.textContent = "GitHub Pages 網頁版；可用 token 啟用股數與現金寫回，股價每 5 分鐘更新。";
 }
 
 async function logout() {
@@ -292,13 +308,151 @@ async function logout() {
   location.reload();
 }
 
-async function refreshQuotes({ quiet, automatic = false }) {
+async function saveGithubToken() {
+  const token = dom.githubTokenInput.value.trim();
+  if (!token) {
+    showToast("請先貼上 GitHub token");
+    return;
+  }
+
+  localStorage.setItem(GITHUB_TOKEN_KEY, token);
+  dom.githubTokenInput.value = "";
+  updateGithubSyncStatus("已儲存 token，正在測試寫回...");
+  showToast("GitHub 寫回已啟用");
+  scheduleGithubSync("啟用 GitHub 寫回", { immediate: true });
+}
+
+function clearGithubToken() {
+  localStorage.removeItem(GITHUB_TOKEN_KEY);
+  sessionStorage.removeItem(GITHUB_TOKEN_KEY);
+  dom.githubTokenInput.value = "";
+  updateGithubSyncStatus();
+  showToast("GitHub token 已清除");
+}
+
+function getGithubToken() {
+  return localStorage.getItem(GITHUB_TOKEN_KEY) || sessionStorage.getItem(GITHUB_TOKEN_KEY) || "";
+}
+
+function updateGithubSyncStatus(message = "") {
+  if (!dom.githubSyncStatus) return;
+  const token = getGithubToken();
+  dom.githubSyncStatus.textContent = message || (token
+    ? "已啟用；股數、現金、持股與手動資產紀錄會寫回 GitHub。"
+    : "未啟用；修改只會存在這台瀏覽器。");
+  dom.githubSyncStatus.classList.toggle("sync-enabled", Boolean(token));
+}
+
+function scheduleGithubSync(reason, { immediate = false } = {}) {
+  if (!getGithubToken()) {
+    updateGithubSyncStatus("未啟用 GitHub 寫回；這次修改只存在此瀏覽器。");
+    return;
+  }
+
+  clearTimeout(githubSyncTimer);
+  githubSyncTimer = setTimeout(() => {
+    githubSyncTimer = null;
+    pushGithubState(reason);
+  }, immediate ? 0 : 1200);
+  updateGithubSyncStatus("等待寫回 GitHub...");
+}
+
+function hasPendingGithubSync() {
+  return Boolean(githubSyncTimer || githubSyncInFlight);
+}
+
+async function pushGithubState(reason) {
+  if (githubSyncInFlight) {
+    githubSyncPending = true;
+    return;
+  }
+
+  const token = getGithubToken();
+  if (!token) return;
+
+  githubSyncInFlight = true;
+  githubSyncPending = false;
+  updateGithubSyncStatus("正在寫回 GitHub...");
+
+  try {
+    const metadata = await fetchGithubStateMetadata(token);
+    try {
+      await putGithubState(token, metadata.sha, reason);
+    } catch (error) {
+      if (!String(error.message).includes("409")) throw error;
+      const latestMetadata = await fetchGithubStateMetadata(token);
+      await putGithubState(token, latestMetadata.sha, reason);
+    }
+    updateGithubSyncStatus(`GitHub 已同步：${formatTime(new Date())}`);
+  } catch (error) {
+    updateGithubSyncStatus(`GitHub 寫回失敗：${error.message}`);
+    showToast(`GitHub 寫回失敗：${error.message}`);
+  } finally {
+    githubSyncInFlight = false;
+    if (githubSyncPending) scheduleGithubSync("更新投資總表", { immediate: true });
+  }
+}
+
+async function fetchGithubStateMetadata(token) {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_STATE_PATH}?ref=${encodeURIComponent(GITHUB_BRANCH)}&t=${Date.now()}`;
+  const response = await fetch(url, {
+    headers: githubHeaders(token),
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error(await githubErrorMessage(response));
+  return response.json();
+}
+
+async function putGithubState(token, sha, reason) {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_STATE_PATH}`;
+  const payload = {
+    message: `Update portfolio state - ${reason}`,
+    branch: GITHUB_BRANCH,
+    sha,
+    content: base64EncodeUtf8(JSON.stringify(state, null, 2) + "\n"),
+  };
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: githubHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) throw new Error(await githubErrorMessage(response));
+  return response.json();
+}
+
+function githubHeaders(token) {
+  return {
+    "Accept": "application/vnd.github+json",
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+}
+
+async function githubErrorMessage(response) {
+  try {
+    const data = await response.json();
+    return `${data?.message || "GitHub API error"} (HTTP ${response.status})`;
+  } catch {
+    return `HTTP ${response.status}`;
+  }
+}
+
+function base64EncodeUtf8(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary);
+}
+
+async function refreshQuotes({ quiet, automatic = false, skipStateSync = false }) {
   if (isRefreshing) {
     if (!quiet) showToast("股價正在更新中");
     return;
   }
-
-    await syncLatestState({ renderAfter: false, force: true });
+  if (!skipStateSync && !hasPendingGithubSync()) await syncLatestState({ renderAfter: false, force: true });
   const symbols = state.holdings.map((holding) => holding.symbol).filter(Boolean);
   if (!symbols.length) {
     if (!quiet) showToast("請先新增持股");
@@ -545,9 +699,9 @@ async function addHolding() {
 
   dom.symbolInput.value = "";
   dom.sharesInput.value = "";
-  await saveState();
+  await saveState({ syncToGithub: true, reason: `更新持股 ${symbol}` });
   render();
-  refreshQuotes({ quiet: true });
+  refreshQuotes({ quiet: true, skipStateSync: true });
 }
 
 async function updateHoldingShares(id, rawValue) {
@@ -564,7 +718,7 @@ async function updateHoldingShares(id, rawValue) {
   if (!numbersEqual(previous, next)) {
     holding.shares = next;
     logChange("shares_change", "", holding.symbol, previous, next);
-    await saveState();
+    await saveState({ syncToGithub: true, reason: `更新 ${holding.symbol} 股數` });
     render();
     showToast(`${holding.symbol} 股數已儲存`);
   } else {
@@ -578,7 +732,7 @@ async function removeHolding(id) {
   if (!holding) return;
   state.holdings = state.holdings.filter((item) => item.id !== id);
   logChange("holding_remove", "", holding.symbol, holding.shares, null);
-  await saveState();
+  await saveState({ syncToGithub: true, reason: `移除 ${holding.symbol}` });
   render();
   showToast(`${holding.symbol} 已移除`);
 }
@@ -595,7 +749,7 @@ async function recordCurrentSnapshot() {
   state.assetHistory.sort((a, b) => a.date.localeCompare(b.date));
   recomputeHistoryChanges();
   logChange("close_snapshot", "", "", null, snapshot.total);
-  await saveState();
+  await saveState({ syncToGithub: true, reason: "記錄目前總資產" });
   render();
   showToast("已記錄目前總資產");
 }

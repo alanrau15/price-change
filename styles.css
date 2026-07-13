@@ -252,6 +252,28 @@ input:focus {
   margin-top: 8px;
 }
 
+.github-sync-panel {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.compact-heading {
+  margin-bottom: 14px;
+}
+
+.sync-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.sync-enabled {
+  color: var(--green);
+  font-weight: 700;
+}
+
 .hint {
   margin: 14px 0 0;
   color: var(--muted);
