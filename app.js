@@ -76,7 +76,7 @@ async function ensureUnlocked() {
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const hash = await sha256(input.value);
+    const hash = await sha256(input.value.trim());
     if (hash !== PASSWORD_HASH) {
       message.textContent = "密碼錯誤。";
       input.select();
