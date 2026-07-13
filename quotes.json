@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T04:59:20.175Z",
+  "updatedAt": "2026-07-13T05:00:19.562Z",
   "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
@@ -23,30 +23,6 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-07-10T20:00:02.000Z",
-      "source": "Yahoo",
-      "cached": false
-    },
-    "BOXX": {
-      "symbol": "BOXX",
-      "price": 117.4,
-      "previousClose": 117.34,
-      "change": 0.060000000000002274,
-      "changePercent": 0.05113345832623341,
-      "currency": "USD",
-      "exchange": "BTS",
-      "marketTime": "2026-07-10T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
-    },
-    "TLT": {
-      "symbol": "TLT",
-      "price": 84.47,
-      "previousClose": 84.49,
-      "change": -0.01999999999999602,
-      "changePercent": -0.023671440407144067,
-      "currency": "USD",
-      "exchange": "NGM",
-      "marketTime": "2026-07-10T20:00:00.000Z",
       "source": "Yahoo",
       "cached": false
     },
