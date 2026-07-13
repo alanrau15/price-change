@@ -70,6 +70,22 @@
             <input id="cashInput" type="text" inputmode="decimal">
           </label>
           <p class="hint">現金只會在你手動修改後儲存，刷新股價不會改現金。</p>
+
+          <div class="github-sync-panel">
+            <div class="panel-heading compact-heading">
+              <h2>GitHub 寫回</h2>
+            </div>
+            <label>
+              GitHub token
+              <input id="githubTokenInput" type="password" autocomplete="off" placeholder="貼上 fine-grained token">
+            </label>
+            <div class="sync-actions">
+              <button id="githubTokenSaveBtn" class="secondary-button" type="button">啟用寫回</button>
+              <button id="githubTokenClearBtn" class="secondary-button" type="button">清除</button>
+            </div>
+            <p id="githubSyncStatus" class="hint">未啟用；修改只會存在這台瀏覽器。</p>
+            <p class="hint">Token 只存在這台裝置，請限制為此 repo 的 Contents 讀寫權限。</p>
+          </div>
         </aside>
 
         <main class="main-panel">
