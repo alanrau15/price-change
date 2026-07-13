@@ -124,7 +124,7 @@
     {
       "id": "2fe527cb-6de6-4685-b569-e750427b0b77",
       "symbol": "MU",
-      "shares": 20,
+      "shares": 40,
       "quote": {
         "symbol": "MU",
         "price": 979.3,
@@ -2006,9 +2006,18 @@
       "previousValue": null,
       "nextValue": 1291394,
       "createdAt": "2026-07-13T02:49:00.147Z"
+    },
+    {
+      "id": "bb2028d4-e500-4122-992d-6c4143e638d1",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "MU",
+      "previousValue": 20,
+      "nextValue": 40,
+      "createdAt": "2026-07-13T04:58:49.743Z"
     }
   ],
-  "savedAt": "2026-07-13T04:55:31.189Z",
+  "savedAt": "2026-07-13T04:58:49.746Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-07-13T04:55:31.157Z",
   "fxSource": "Yahoo"
