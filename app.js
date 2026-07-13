@@ -16,7 +16,7 @@ let githubSyncTimer = null;
 let githubSyncInFlight = false;
 let githubSyncPending = false;
 
-const PASSWORD_HASH = "21039d52a7306ee5b6b7b43512d78cde1da852f5679f401459dd757b42b23a57";
+const PASSWORD_HASH = "4b97f9dbb25b9b8c0847d2c06dda29699dfb25fcd40137a72c216f312dc5cc34";
 const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const STATE_SYNC_MS = 30 * 1000;
 const STATIC_STATE_URL = "https://raw.githubusercontent.com/alanrau15/price-change/gh-pages/portfolio-state.json";
