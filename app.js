@@ -233,6 +233,7 @@ function normalizeState(input = {}) {
     .map((holding) => ({
       id: holding.id || crypto.randomUUID(),
       symbol: String(holding.symbol || "").trim().toUpperCase(),
+      label: String(holding.label || holding.symbol || "").trim(),
       shares: parseNumber(holding.shares, 0),
       quote: holding.quote || {},
     }))
@@ -279,7 +280,9 @@ async function syncLatestState({ renderAfter = true, force = false } = {}) {
     savedAt: state.savedAt || "",
     cash: state.cash,
     holdings: state.holdings.map((holding) => ({
+      id: holding.id,
       symbol: holding.symbol,
+      label: holding.label,
       shares: holding.shares,
     })),
   });
@@ -288,7 +291,9 @@ async function syncLatestState({ renderAfter = true, force = false } = {}) {
     savedAt: state.savedAt || "",
     cash: state.cash,
     holdings: state.holdings.map((holding) => ({
+      id: holding.id,
       symbol: holding.symbol,
+      label: holding.label,
       shares: holding.shares,
     })),
   });
@@ -453,7 +458,7 @@ async function refreshQuotes({ quiet, automatic = false, skipStateSync = false }
     return;
   }
   if (!skipStateSync && !hasPendingGithubSync()) await syncLatestState({ renderAfter: false, force: true });
-  const symbols = state.holdings.map((holding) => holding.symbol).filter(Boolean);
+  const symbols = [...new Set(state.holdings.map((holding) => holding.symbol).filter(Boolean))];
   if (!symbols.length) {
     if (!quiet) showToast("請先新增持股");
     return;
@@ -691,6 +696,7 @@ async function addHolding() {
     state.holdings.push({
       id: crypto.randomUUID(),
       symbol,
+      label: symbol,
       shares,
       quote: {},
     });
@@ -767,6 +773,7 @@ function buildCurrentSnapshot(source) {
     source,
     holdings: summary.rows.map((row) => ({
       symbol: row.symbol,
+      label: row.label,
       shares: row.shares,
       price: roundMoney(row.price),
       marketValue: roundMoney(row.marketValue),
@@ -819,7 +826,13 @@ function getPortfolioSummary() {
     row.weight = total ? (row.marketValue / total) * 100 : 0;
   });
 
-  const largest = [...rows].sort((a, b) => b.weight - a.weight)[0] || null;
+  const groupedWeights = new Map();
+  rows.forEach((row) => {
+    groupedWeights.set(row.symbol, (groupedWeights.get(row.symbol) || 0) + row.weight);
+  });
+  const largest = [...groupedWeights.entries()]
+    .map(([symbol, weight]) => ({ symbol, weight }))
+    .sort((a, b) => b.weight - a.weight)[0] || null;
   return { rows, securities, total, dayChange, largest };
 }
 
@@ -849,7 +862,7 @@ function renderHoldings(summary) {
 
   dom.holdingsBody.innerHTML = summary.rows.map((row) => `
     <tr>
-      <td class="symbol">${escapeHtml(row.symbol)}</td>
+      <td class="symbol">${escapeHtml(row.label || row.symbol)}</td>
       <td>
         <input class="shares-text" type="text" inputmode="decimal" data-id="${row.id}" value="${escapeHtml(formatPlainNumber(row.shares))}">
       </td>
@@ -858,7 +871,7 @@ function renderHoldings(summary) {
       <td class="${trendClass(row.marketValueChange)}">${formatSignedMoney(row.marketValueChange)}</td>
       <td>${formatMoney(row.marketValue)}</td>
       <td>${formatPercent(row.weight)}</td>
-      <td><button class="delete-button" type="button" data-remove-id="${row.id}" aria-label="移除 ${escapeHtml(row.symbol)}">×</button></td>
+      <td><button class="delete-button" type="button" data-remove-id="${row.id}" aria-label="移除 ${escapeHtml(row.label || row.symbol)}">×</button></td>
     </tr>
   `).join("");
 }
@@ -1018,7 +1031,7 @@ async function copyHoldings() {
     "",
     "代號\t股數\t最新價格\t日變動\t市值變化\t市值\t佔比",
     ...summary.rows.map((row) => [
-      row.symbol,
+      row.label || row.symbol,
       formatPlainNumber(row.shares),
       formatMoney(row.price),
       `${formatSignedMoney(row.change)} / ${formatSignedPercent(row.changePercent)}`,
