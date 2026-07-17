@@ -6,7 +6,7 @@
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
       "symbol": "NVDA",
       "label": "NVDA 1",
-      "shares": 750,
+      "shares": 3025,
       "quote": {
         "symbol": "NVDA",
         "price": 207.4,
@@ -2361,9 +2361,18 @@
       "previousValue": 4070,
       "nextValue": 1785,
       "createdAt": "2026-07-17T11:15:25.866Z"
+    },
+    {
+      "id": "cc1b8d24-ab32-4c42-a590-fdea6a8a4070",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "NVDA",
+      "previousValue": 750,
+      "nextValue": 3025,
+      "createdAt": "2026-07-17T11:15:53.685Z"
     }
   ],
-  "savedAt": "2026-07-17T11:15:25.868Z",
+  "savedAt": "2026-07-17T11:15:53.688Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-07-17T11:14:26.197Z",
   "fxSource": "Yahoo"
