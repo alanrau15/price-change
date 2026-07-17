@@ -1,11 +1,30 @@
 {
   "cash": 3484.25,
-  "usdTwdRate": 32.36,
+  "usdTwdRate": 32.337,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
       "symbol": "NVDA",
-      "shares": 4820,
+      "label": "NVDA 1",
+      "shares": 750,
+      "quote": {
+        "symbol": "NVDA",
+        "price": 207.4,
+        "previousClose": 212.5,
+        "change": -5.099999999999994,
+        "changePercent": -2.3999999999999972,
+        "currency": "USD",
+        "exchange": "NMS",
+        "marketTime": "2026-07-16T20:00:00.000Z",
+        "source": "Yahoo",
+        "cached": false
+      }
+    },
+    {
+      "id": "8a8ed06c-57e8-4fc1-99ec-4a5cae263f69",
+      "symbol": "NVDA",
+      "label": "NVDA 2",
+      "shares": 4070,
       "quote": {
         "symbol": "NVDA",
         "price": 207.4,
@@ -22,6 +41,7 @@
     {
       "id": "f72c73b5-cf9e-4b5f-80f5-f21c940b1d4b",
       "symbol": "TSM",
+      "label": "TSM",
       "shares": 138,
       "quote": {
         "symbol": "TSM",
@@ -39,6 +59,7 @@
     {
       "id": "3efb8a18-0b38-4277-8c50-f1765b73c773",
       "symbol": "VOO",
+      "label": "VOO",
       "shares": 135.4037,
       "quote": {
         "symbol": "VOO",
@@ -56,6 +77,7 @@
     {
       "id": "84b09ada-256e-4582-be87-f9d579522088",
       "symbol": "QQQ",
+      "label": "QQQ",
       "shares": 30,
       "quote": {
         "symbol": "QQQ",
@@ -73,6 +95,7 @@
     {
       "id": "614f4886-df13-4530-baf8-15476526feaf",
       "symbol": "GLW",
+      "label": "GLW",
       "shares": 107,
       "quote": {
         "symbol": "GLW",
@@ -90,6 +113,7 @@
     {
       "id": "2fe527cb-6de6-4685-b569-e750427b0b77",
       "symbol": "MU",
+      "label": "MU",
       "shares": 40,
       "quote": {
         "symbol": "MU",
@@ -2330,8 +2354,8 @@
       "createdAt": "2026-07-17T10:56:31.167Z"
     }
   ],
-  "savedAt": "2026-07-17T11:07:32.750Z",
+  "savedAt": "2026-07-17T11:14:26.255Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-07-17T11:07:32.732Z",
+  "fxUpdatedAt": "2026-07-17T11:14:26.197Z",
   "fxSource": "Yahoo"
 }
