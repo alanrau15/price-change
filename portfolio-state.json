@@ -1,6 +1,6 @@
 {
   "cash": 4958.19,
-  "usdTwdRate": 32.337,
+  "usdTwdRate": 32.345,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
@@ -2381,8 +2381,8 @@
       "createdAt": "2026-07-17T11:16:31.674Z"
     }
   ],
-  "savedAt": "2026-07-17T11:16:31.676Z",
+  "savedAt": "2026-07-17T11:21:14.732Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-07-17T11:14:26.197Z",
+  "fxUpdatedAt": "2026-07-17T11:21:14.716Z",
   "fxSource": "Yahoo"
 }
