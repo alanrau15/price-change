@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-07-17T07:35:55.883Z",
-  "source": "Yahoo via GitHub Actions",
+  "updatedAt": "2026-07-17T10:56:31.168Z",
+  "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
@@ -11,7 +11,8 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-07-16T20:00:00.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     },
     "TSM": {
       "symbol": "TSM",
@@ -22,7 +23,8 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-07-16T20:00:02.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     },
     "VOO": {
       "symbol": "VOO",
@@ -33,7 +35,8 @@
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-07-16T20:00:00.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     },
     "QQQ": {
       "symbol": "QQQ",
@@ -44,7 +47,8 @@
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-07-16T20:00:01.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     },
     "GLW": {
       "symbol": "GLW",
@@ -55,7 +59,8 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-07-16T20:04:22.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     },
     "MU": {
       "symbol": "MU",
@@ -66,14 +71,15 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-07-16T20:00:01.000Z",
-      "source": "Yahoo"
+      "source": "Yahoo",
+      "cached": false
     }
   },
   "fx": {
-    "rate": 32.345,
+    "rate": 32.335,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-07-17T07:35:55.920Z"
+    "updatedAt": "2026-07-17T10:56:30.982Z"
   },
   "errors": {}
 }
