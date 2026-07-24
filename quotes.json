@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-07-24T15:29:18.932Z",
+  "updatedAt": "2026-07-24T16:18:02.394Z",
   "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
-      "price": 208.02,
+      "price": 208.01,
       "previousClose": 208.76,
-      "change": -0.7399999999999807,
-      "changePercent": -0.35447403717186277,
+      "change": -0.75,
+      "changePercent": -0.3592642268633838,
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-07-24T14:24:42.000Z",
@@ -79,7 +79,7 @@
     "rate": 32.362,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-07-24T15:29:18.743Z"
+    "updatedAt": "2026-07-24T16:18:02.257Z"
   },
   "errors": {}
 }
