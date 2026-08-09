@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-09T16:50:54.010Z",
+  "updatedAt": "2026-08-09T17:27:07.197Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -60,9 +60,9 @@
     "MU": {
       "symbol": "MU",
       "price": 877.57,
-      "previousClose": 881.47,
-      "change": -3.8999999999999773,
-      "changePercent": -0.442442737699522,
+      "previousClose": 881.47003,
+      "change": -3.9000299999999015,
+      "changePercent": -0.4424461260469516,
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-08-07T20:00:01.000Z",
@@ -73,7 +73,7 @@
     "rate": 32.235,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-09T16:50:54.189Z"
+    "updatedAt": "2026-08-09T17:27:07.277Z"
   },
   "errors": {}
 }
