@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T20:19:29.220Z",
+  "updatedAt": "2026-08-11T21:12:15.102Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -48,13 +48,13 @@
     },
     "GLW": {
       "symbol": "GLW",
-      "price": 159.2,
+      "price": 159.19,
       "previousClose": 157.76,
-      "change": 1.4399999999999977,
-      "changePercent": 0.912778904665313,
+      "change": 1.4300000000000068,
+      "changePercent": 0.9064401622718097,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-08-11T19:59:59.000Z",
+      "marketTime": "2026-08-11T20:04:44.000Z",
       "source": "Yahoo"
     },
     "MU": {
@@ -70,10 +70,10 @@
     }
   },
   "fx": {
-    "rate": 32.225,
+    "rate": 32.228,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-11T20:19:29.280Z"
+    "updatedAt": "2026-08-11T21:12:15.222Z"
   },
   "errors": {}
 }
