@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-08-13T15:23:14.191Z",
+  "updatedAt": "2026-08-13T15:23:22.200Z",
   "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
-      "price": 224.77,
+      "price": 224.7,
       "previousClose": 224.09,
-      "change": 0.6800000000000068,
-      "changePercent": 0.3034495068945543,
+      "change": 0.6099999999999852,
+      "changePercent": 0.2722120576553997,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-08-13T15:23:05.000Z",
+      "marketTime": "2026-08-13T15:23:21.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -22,7 +22,7 @@
       "changePercent": 0.9437259699405829,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-08-13T15:23:10.000Z",
+      "marketTime": "2026-08-13T15:23:20.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -40,37 +40,37 @@
     },
     "QQQ": {
       "symbol": "QQQ",
-      "price": 732.915,
+      "price": 732.9,
       "previousClose": 723.7,
-      "change": 9.214999999999918,
-      "changePercent": 1.27331767306894,
+      "change": 9.199999999999932,
+      "changePercent": 1.2712449910183683,
       "currency": "USD",
       "exchange": "NGM",
-      "marketTime": "2026-08-13T15:23:11.000Z",
+      "marketTime": "2026-08-13T15:23:21.000Z",
       "source": "Yahoo",
       "cached": false
     },
     "GLW": {
       "symbol": "GLW",
-      "price": 165.92,
+      "price": 166,
       "previousClose": 167.44,
-      "change": -1.5200000000000102,
-      "changePercent": -0.9077878643096094,
+      "change": -1.4399999999999977,
+      "changePercent": -0.8600095556617282,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-08-13T15:23:10.000Z",
+      "marketTime": "2026-08-13T15:23:20.000Z",
       "source": "Yahoo",
       "cached": false
     },
     "MU": {
       "symbol": "MU",
-      "price": 976.35,
+      "price": 975.87,
       "previousClose": 911.29,
-      "change": 65.06000000000006,
-      "changePercent": 7.139329960824773,
+      "change": 64.58000000000004,
+      "changePercent": 7.086657375807926,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-08-13T15:23:13.000Z",
+      "marketTime": "2026-08-13T15:23:21.000Z",
       "source": "Yahoo",
       "cached": false
     }
@@ -79,7 +79,7 @@
     "rate": 32.086,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-13T15:23:14.095Z"
+    "updatedAt": "2026-08-13T15:23:22.194Z"
   },
   "errors": {}
 }
