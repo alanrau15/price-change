@@ -1,6 +1,6 @@
 {
   "cash": 4378.33,
-  "usdTwdRate": 32.081,
+  "usdTwdRate": 32.086,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
@@ -9,13 +9,13 @@
       "shares": 3575,
       "quote": {
         "symbol": "NVDA",
-        "price": 224.84,
+        "price": 224.98,
         "previousClose": 224.09,
-        "change": 0.75,
-        "changePercent": 0.33468695613369626,
+        "change": 0.8899999999999864,
+        "changePercent": 0.39716185461198017,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-13T14:55:39.000Z",
+        "marketTime": "2026-08-13T14:57:17.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -27,13 +27,13 @@
       "shares": 1035,
       "quote": {
         "symbol": "NVDA",
-        "price": 224.84,
+        "price": 224.98,
         "previousClose": 224.09,
-        "change": 0.75,
-        "changePercent": 0.33468695613369626,
+        "change": 0.8899999999999864,
+        "changePercent": 0.39716185461198017,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-13T14:55:39.000Z",
+        "marketTime": "2026-08-13T14:57:17.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -45,13 +45,13 @@
       "shares": 138,
       "quote": {
         "symbol": "TSM",
-        "price": 433.65,
+        "price": 433.56,
         "previousClose": 429.15,
-        "change": 4.5,
-        "changePercent": 1.0485844110450893,
+        "change": 4.410000000000025,
+        "changePercent": 1.0276127228241931,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-08-13T14:55:38.000Z",
+        "marketTime": "2026-08-13T14:57:16.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -63,13 +63,13 @@
       "shares": 135.4037,
       "quote": {
         "symbol": "VOO",
-        "price": 714.705,
+        "price": 714.815,
         "previousClose": 710.17,
-        "change": 4.535000000000082,
-        "changePercent": 0.6385794950504924,
+        "change": 4.6450000000000955,
+        "changePercent": 0.654068744103538,
         "currency": "USD",
         "exchange": "PCX",
-        "marketTime": "2026-08-13T14:55:38.000Z",
+        "marketTime": "2026-08-13T14:57:16.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -81,13 +81,13 @@
       "shares": 30,
       "quote": {
         "symbol": "QQQ",
-        "price": 732.45,
+        "price": 732.33,
         "previousClose": 723.7,
-        "change": 8.75,
-        "changePercent": 1.2090645295011744,
+        "change": 8.629999999999995,
+        "changePercent": 1.1924830730965863,
         "currency": "USD",
         "exchange": "NGM",
-        "marketTime": "2026-08-13T14:55:30.000Z",
+        "marketTime": "2026-08-13T14:57:17.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -99,13 +99,13 @@
       "shares": 107,
       "quote": {
         "symbol": "GLW",
-        "price": 166.28,
+        "price": 165.76,
         "previousClose": 167.44,
-        "change": -1.1599999999999966,
-        "changePercent": -0.692785475394169,
+        "change": -1.6800000000000068,
+        "changePercent": -1.0033444816053552,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-08-13T14:55:38.000Z",
+        "marketTime": "2026-08-13T14:57:16.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -117,13 +117,13 @@
       "shares": 40,
       "quote": {
         "symbol": "MU",
-        "price": 958,
+        "price": 957.63,
         "previousClose": 911.29,
-        "change": 46.710000000000036,
-        "changePercent": 5.125700929451661,
+        "change": 46.34000000000003,
+        "changePercent": 5.085099145167843,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-13T14:55:39.000Z",
+        "marketTime": "2026-08-13T14:57:17.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -3782,8 +3782,8 @@
       "createdAt": "2026-08-13T14:57:08.407Z"
     }
   ],
-  "savedAt": "2026-08-13T14:57:08.408Z",
+  "savedAt": "2026-08-13T14:57:18.562Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-08-13T14:55:40.656Z",
+  "fxUpdatedAt": "2026-08-13T14:57:18.557Z",
   "fxSource": "Yahoo"
 }
