@@ -1,6 +1,6 @@
 {
   "cash": 4378.33,
-  "usdTwdRate": 31.823,
+  "usdTwdRate": 31.83,
   "holdings": [
     {
       "id": "30241c6b-ebde-40c0-9902-125aa068d903",
@@ -9,13 +9,13 @@
       "shares": 3575,
       "quote": {
         "symbol": "NVDA",
-        "price": 227.33,
+        "price": 227.63,
         "previousClose": 225.16,
-        "change": 2.170000000000016,
-        "changePercent": 0.9637591046367099,
+        "change": 2.469999999999999,
+        "changePercent": 1.0969976905311773,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-17T15:47:22.000Z",
+        "marketTime": "2026-08-17T15:52:24.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -27,13 +27,13 @@
       "shares": 1035,
       "quote": {
         "symbol": "NVDA",
-        "price": 227.33,
+        "price": 227.63,
         "previousClose": 225.16,
-        "change": 2.170000000000016,
-        "changePercent": 0.9637591046367099,
+        "change": 2.469999999999999,
+        "changePercent": 1.0969976905311773,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-17T15:47:22.000Z",
+        "marketTime": "2026-08-17T15:52:24.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -45,13 +45,13 @@
       "shares": 138,
       "quote": {
         "symbol": "TSM",
-        "price": 433.423,
+        "price": 433.99,
         "previousClose": 426.35,
-        "change": 7.072999999999979,
-        "changePercent": 1.6589656385598637,
+        "change": 7.639999999999986,
+        "changePercent": 1.7919549665767527,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-08-17T15:47:21.000Z",
+        "marketTime": "2026-08-17T15:52:18.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -63,13 +63,13 @@
       "shares": 135.4037,
       "quote": {
         "symbol": "VOO",
-        "price": 712.42,
+        "price": 712.612,
         "previousClose": 713.61,
-        "change": -1.1900000000000546,
-        "changePercent": -0.16675775283418878,
+        "change": -0.9980000000000473,
+        "changePercent": -0.1398523002760678,
         "currency": "USD",
         "exchange": "PCX",
-        "marketTime": "2026-08-17T15:47:21.000Z",
+        "marketTime": "2026-08-17T15:52:12.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -81,13 +81,13 @@
       "shares": 30,
       "quote": {
         "symbol": "QQQ",
-        "price": 733.095,
+        "price": 733.445,
         "previousClose": 731.07,
-        "change": 2.0249999999999773,
-        "changePercent": 0.2769912593869229,
+        "change": 2.375,
+        "changePercent": 0.3248662918735552,
         "currency": "USD",
         "exchange": "NGM",
-        "marketTime": "2026-08-17T15:47:22.000Z",
+        "marketTime": "2026-08-17T15:52:22.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -105,7 +105,7 @@
         "changePercent": 5.385866618470991,
         "currency": "USD",
         "exchange": "NYQ",
-        "marketTime": "2026-08-17T15:47:20.000Z",
+        "marketTime": "2026-08-17T15:52:21.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -117,13 +117,13 @@
       "shares": 40,
       "quote": {
         "symbol": "MU",
-        "price": 1028.62,
+        "price": 1026.1,
         "previousClose": 971.66,
-        "change": 56.95999999999992,
-        "changePercent": 5.862132844822255,
+        "change": 54.43999999999994,
+        "changePercent": 5.602782866434755,
         "currency": "USD",
         "exchange": "NMS",
-        "marketTime": "2026-08-17T15:47:22.000Z",
+        "marketTime": "2026-08-17T15:52:16.000Z",
         "source": "Yahoo",
         "cached": false
       }
@@ -3920,8 +3920,8 @@
       "createdAt": "2026-08-14T16:02:00.921Z"
     }
   ],
-  "savedAt": "2026-08-17T15:47:24.525Z",
+  "savedAt": "2026-08-17T15:52:24.925Z",
   "schemaVersion": 2,
-  "fxUpdatedAt": "2026-08-17T15:47:24.521Z",
+  "fxUpdatedAt": "2026-08-17T15:52:24.833Z",
   "fxSource": "Yahoo"
 }
