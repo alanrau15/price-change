@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T01:19:38.052Z",
+  "updatedAt": "2026-08-19T02:36:03.542Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -70,10 +70,10 @@
     }
   },
   "fx": {
-    "rate": 31.97,
+    "rate": 31.897,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-19T01:19:38.103Z"
+    "updatedAt": "2026-08-19T02:36:03.607Z"
   },
   "errors": {}
 }
