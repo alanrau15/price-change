@@ -1,79 +1,79 @@
 {
-  "updatedAt": "2026-08-20T17:36:54.044Z",
+  "updatedAt": "2026-08-20T18:02:04.978Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
-      "price": 216.245,
+      "price": 216.8,
       "previousClose": 217.56,
-      "change": -1.3149999999999977,
-      "changePercent": -0.6044309615738177,
+      "change": -0.7599999999999909,
+      "changePercent": -0.349328920757488,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-08-20T17:36:51.000Z",
+      "marketTime": "2026-08-20T18:02:02.000Z",
       "source": "Yahoo"
     },
     "TSM": {
       "symbol": "TSM",
-      "price": 414.955,
+      "price": 415.565,
       "previousClose": 412.09,
-      "change": 2.865000000000009,
-      "changePercent": 0.6952364774685164,
+      "change": 3.4750000000000227,
+      "changePercent": 0.8432623941372086,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-08-20T17:36:50.000Z",
+      "marketTime": "2026-08-20T18:01:54.000Z",
       "source": "Yahoo"
     },
     "VOO": {
       "symbol": "VOO",
-      "price": 702.785,
+      "price": 702.47,
       "previousClose": 706.91,
-      "change": -4.125,
-      "changePercent": -0.5835254841493259,
+      "change": -4.439999999999941,
+      "changePercent": -0.6280856120298116,
       "currency": "USD",
       "exchange": "PCX",
-      "marketTime": "2026-08-20T17:36:51.000Z",
+      "marketTime": "2026-08-20T18:01:52.000Z",
       "source": "Yahoo"
     },
     "QQQ": {
       "symbol": "QQQ",
-      "price": 710.67,
+      "price": 710.38,
       "previousClose": 716.08,
-      "change": -5.410000000000082,
-      "changePercent": -0.7555021785275502,
+      "change": -5.7000000000000455,
+      "changePercent": -0.7960004468774502,
       "currency": "USD",
       "exchange": "NGM",
-      "marketTime": "2026-08-20T17:36:52.000Z",
+      "marketTime": "2026-08-20T18:02:02.000Z",
       "source": "Yahoo"
     },
     "GLW": {
       "symbol": "GLW",
-      "price": 151.587,
+      "price": 151.535,
       "previousClose": 152.46,
-      "change": -0.8730000000000189,
-      "changePercent": -0.5726092089728576,
+      "change": -0.9250000000000114,
+      "changePercent": -0.6067165158074322,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-08-20T17:36:49.000Z",
+      "marketTime": "2026-08-20T18:02:00.000Z",
       "source": "Yahoo"
     },
     "MU": {
       "symbol": "MU",
-      "price": 955,
+      "price": 954.39,
       "previousClose": 937.105,
-      "change": 17.894999999999982,
-      "changePercent": 1.9096045800630648,
+      "change": 17.284999999999968,
+      "changePercent": 1.8445104870852218,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-08-20T17:36:51.000Z",
+      "marketTime": "2026-08-20T18:01:58.000Z",
       "source": "Yahoo"
     }
   },
   "fx": {
-    "rate": 31.89,
+    "rate": 31.888,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-20T17:36:54.124Z"
+    "updatedAt": "2026-08-20T18:02:05.080Z"
   },
   "errors": {}
 }
