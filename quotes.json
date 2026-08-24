@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-24T14:50:21.585Z",
+  "updatedAt": "2026-08-24T15:04:07.565Z",
   "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
@@ -76,10 +76,10 @@
     }
   },
   "fx": {
-    "rate": 31.834,
-    "source": "Yahoo",
+    "rate": 32.3,
+    "source": "fallback",
     "symbol": "TWD=X",
-    "updatedAt": "2026-08-24T14:50:21.580Z"
+    "updatedAt": "2026-08-24T15:04:07.559Z"
   },
   "errors": {}
 }
