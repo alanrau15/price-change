@@ -78,7 +78,7 @@
       "id": "84b09ada-256e-4582-be87-f9d579522088",
       "symbol": "QQQ",
       "label": "QQQ",
-      "shares": 30,
+      "shares": 36,
       "quote": {
         "symbol": "QQQ",
         "price": 710.425,
@@ -4401,9 +4401,18 @@
       "previousValue": null,
       "nextValue": 1213854.86,
       "createdAt": "2026-08-26T15:03:37.322Z"
+    },
+    {
+      "id": "7074dbe5-f4ed-4824-b674-d889005f5e29",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "QQQ",
+      "previousValue": 30,
+      "nextValue": 36,
+      "createdAt": "2026-08-26T15:07:44.713Z"
     }
   ],
-  "savedAt": "2026-08-26T15:03:37.324Z",
+  "savedAt": "2026-08-26T15:07:44.715Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-08-26T15:03:37.122Z",
   "fxSource": "Yahoo"
