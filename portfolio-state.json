@@ -132,7 +132,7 @@
       "id": "c78c39ba-a90b-4a7e-8cb9-ea5507dbd076",
       "symbol": "BOXX",
       "label": "BOXX",
-      "shares": 44,
+      "shares": 134,
       "quote": {
         "symbol": "BOXX",
         "price": 118.06,
@@ -4759,9 +4759,18 @@
       "previousValue": 3525,
       "nextValue": 3549,
       "createdAt": "2026-09-01T16:21:48.505Z"
+    },
+    {
+      "id": "57a2fe0b-2d2a-4efa-8d83-7c66e320bbde",
+      "type": "shares_change",
+      "label": "",
+      "symbol": "BOXX",
+      "previousValue": 44,
+      "nextValue": 134,
+      "createdAt": "2026-09-01T16:25:48.335Z"
     }
   ],
-  "savedAt": "2026-09-01T16:21:48.508Z",
+  "savedAt": "2026-09-01T16:25:48.337Z",
   "schemaVersion": 2,
   "fxUpdatedAt": "2026-09-01T16:21:43.329Z",
   "fxSource": "Yahoo"
