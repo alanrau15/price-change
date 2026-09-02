@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-09-02T16:44:00.082Z",
+  "updatedAt": "2026-09-02T16:44:06.246Z",
   "source": "Yahoo via local Portfolio Tracker",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
-      "price": 226.37,
+      "price": 226.377,
       "previousClose": 217.44,
-      "change": 8.930000000000007,
-      "changePercent": 4.1068800588668175,
+      "change": 8.937000000000012,
+      "changePercent": 4.11009933774835,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-09-02T16:43:58.000Z",
+      "marketTime": "2026-09-02T16:44:03.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -28,13 +28,13 @@
     },
     "VOO": {
       "symbol": "VOO",
-      "price": 703.03,
+      "price": 703.049,
       "previousClose": 700.28,
-      "change": 2.75,
-      "changePercent": 0.3927000628320101,
+      "change": 2.7690000000000055,
+      "changePercent": 0.3954132632661229,
       "currency": "USD",
       "exchange": "PCX",
-      "marketTime": "2026-09-02T16:43:49.000Z",
+      "marketTime": "2026-09-02T16:43:59.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -46,7 +46,7 @@
       "changePercent": 0.07630998812955227,
       "currency": "USD",
       "exchange": "NGM",
-      "marketTime": "2026-09-02T16:43:56.000Z",
+      "marketTime": "2026-09-02T16:44:00.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -64,13 +64,13 @@
     },
     "MU": {
       "symbol": "MU",
-      "price": 944.995,
+      "price": 944.7,
       "previousClose": 933.44,
-      "change": 11.55499999999995,
-      "changePercent": 1.2378942406582052,
+      "change": 11.259999999999991,
+      "changePercent": 1.2062907096331839,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-09-02T16:43:58.000Z",
+      "marketTime": "2026-09-02T16:44:03.000Z",
       "source": "Yahoo",
       "cached": false
     },
@@ -91,7 +91,7 @@
     "rate": 31.748,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-09-02T16:44:00.075Z"
+    "updatedAt": "2026-09-02T16:44:06.238Z"
   },
   "errors": {}
 }
