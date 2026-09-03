@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-03T23:21:33.408Z",
-  "source": "Yahoo via local Portfolio Tracker",
+  "updatedAt": "2026-09-03T23:22:07.876Z",
+  "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
@@ -11,8 +11,7 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-09-03T20:00:00.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "TSM": {
       "symbol": "TSM",
@@ -23,8 +22,7 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-09-03T20:00:02.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "VOO": {
       "symbol": "VOO",
@@ -35,8 +33,7 @@
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-09-03T20:00:00.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "QQQ": {
       "symbol": "QQQ",
@@ -47,8 +44,7 @@
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-09-03T20:00:00.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "GLW": {
       "symbol": "GLW",
@@ -59,8 +55,7 @@
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-09-03T20:03:48.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "MU": {
       "symbol": "MU",
@@ -71,8 +66,7 @@
       "currency": "USD",
       "exchange": "NMS",
       "marketTime": "2026-09-03T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     },
     "BOXX": {
       "symbol": "BOXX",
@@ -83,15 +77,14 @@
       "currency": "USD",
       "exchange": "BTS",
       "marketTime": "2026-09-03T20:00:01.000Z",
-      "source": "Yahoo",
-      "cached": false
+      "source": "Yahoo"
     }
   },
   "fx": {
     "rate": 31.713,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-09-03T23:21:33.394Z"
+    "updatedAt": "2026-09-03T23:22:07.965Z"
   },
   "errors": {}
 }
