@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T22:24:25.434Z",
+  "updatedAt": "2026-09-17T00:48:47.732Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -27,9 +27,9 @@
     "VOO": {
       "symbol": "VOO",
       "price": 693.24,
-      "previousClose": 696.255,
-      "change": -3.0149999999999864,
-      "changePercent": -0.43303100157269775,
+      "previousClose": 696.2,
+      "change": -2.9600000000000364,
+      "changePercent": -0.4251651824188503,
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-09-16T20:00:00.000Z",
@@ -81,10 +81,10 @@
     }
   },
   "fx": {
-    "rate": 31.832,
+    "rate": 31.854,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-09-16T22:24:25.539Z"
+    "updatedAt": "2026-09-17T00:48:47.765Z"
   },
   "errors": {}
 }
