@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T22:24:09.952Z",
+  "updatedAt": "2026-09-22T01:03:01.376Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -38,9 +38,9 @@
     "QQQ": {
       "symbol": "QQQ",
       "price": 741.47,
-      "previousClose": 720.69855,
-      "change": 20.771450000000073,
-      "changePercent": 2.882127347141197,
+      "previousClose": 720.699,
+      "change": 20.771000000000072,
+      "changePercent": 2.882063108176933,
       "currency": "USD",
       "exchange": "NGM",
       "marketTime": "2026-09-21T20:00:00.000Z",
@@ -81,10 +81,10 @@
     }
   },
   "fx": {
-    "rate": 31.724,
+    "rate": 31.672,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-09-21T22:24:10.049Z"
+    "updatedAt": "2026-09-22T01:03:01.424Z"
   },
   "errors": {}
 }
