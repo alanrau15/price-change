@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-03T06:50:59.791Z",
+  "updatedAt": "2026-10-03T12:11:40.025Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -10,7 +10,7 @@
       "changePercent": 1.3384735337433835,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-10-02T20:00:00.000Z",
+      "marketTime": "2026-10-02T20:00:01.000Z",
       "source": "Yahoo"
     },
     "TSM": {
@@ -84,7 +84,7 @@
     "rate": 31.796,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-10-03T06:50:59.838Z"
+    "updatedAt": "2026-10-03T12:11:40.161Z"
   },
   "errors": {}
 }
