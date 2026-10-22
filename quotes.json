@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T20:05:24.847Z",
+  "updatedAt": "2026-10-22T23:21:14.497Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -15,21 +15,21 @@
     },
     "TSM": {
       "symbol": "TSM",
-      "price": 412.375,
+      "price": 412.35,
       "previousClose": 431.89,
-      "change": -19.514999999999986,
-      "changePercent": -4.518511658061077,
+      "change": -19.539999999999964,
+      "changePercent": -4.524300169024512,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-10-22T19:59:58.000Z",
+      "marketTime": "2026-10-22T20:00:03.000Z",
       "source": "Yahoo"
     },
     "VOO": {
       "symbol": "VOO",
-      "price": 702.28,
+      "price": 702.3,
       "previousClose": 710.72,
-      "change": -8.440000000000055,
-      "changePercent": -1.1875281404772702,
+      "change": -8.420000000000073,
+      "changePercent": -1.1847140927510234,
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-10-22T20:00:00.000Z",
@@ -48,13 +48,13 @@
     },
     "GLW": {
       "symbol": "GLW",
-      "price": 123.97,
+      "price": 123.99,
       "previousClose": 134.92,
-      "change": -10.949999999999989,
-      "changePercent": -8.115920545508441,
+      "change": -10.929999999999993,
+      "changePercent": -8.101096946338567,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-10-22T19:59:56.000Z",
+      "marketTime": "2026-10-22T20:03:52.000Z",
       "source": "Yahoo"
     },
     "MU": {
@@ -70,21 +70,21 @@
     },
     "BOXX": {
       "symbol": "BOXX",
-      "price": 118.699,
+      "price": 118.69,
       "previousClose": 118.71,
-      "change": -0.01099999999999568,
-      "changePercent": -0.009266279167716013,
+      "change": -0.01999999999999602,
+      "changePercent": -0.01684778030494147,
       "currency": "USD",
       "exchange": "BTS",
-      "marketTime": "2026-10-22T19:59:58.000Z",
+      "marketTime": "2026-10-22T20:00:01.000Z",
       "source": "Yahoo"
     }
   },
   "fx": {
-    "rate": 32.598,
+    "rate": 32.597,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-10-22T20:05:24.973Z"
+    "updatedAt": "2026-10-22T23:21:14.552Z"
   },
   "errors": {}
 }
