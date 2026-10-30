@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-10-30T20:23:15.077Z",
+  "updatedAt": "2026-10-30T23:57:20.633Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
       "symbol": "NVDA",
-      "price": 204.59,
+      "price": 204.64,
       "previousClose": 213.66,
-      "change": -9.069999999999993,
-      "changePercent": -4.2450622484320855,
+      "change": -9.02000000000001,
+      "changePercent": -4.22166058223346,
       "currency": "USD",
       "exchange": "NMS",
-      "marketTime": "2026-10-30T19:51:16.000Z",
+      "marketTime": "2026-10-30T20:00:01.000Z",
       "source": "Yahoo"
     },
     "TSM": {
@@ -26,10 +26,10 @@
     },
     "VOO": {
       "symbol": "VOO",
-      "price": 694.72,
+      "price": 694.81,
       "previousClose": 707.32,
-      "change": -12.600000000000023,
-      "changePercent": -1.7813719391505995,
+      "change": -12.510000000000105,
+      "changePercent": -1.7686478538709642,
       "currency": "USD",
       "exchange": "PCX",
       "marketTime": "2026-10-30T20:00:00.000Z",
@@ -84,7 +84,7 @@
     "rate": 32.605,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-10-30T20:23:15.155Z"
+    "updatedAt": "2026-10-30T23:57:20.732Z"
   },
   "errors": {}
 }
