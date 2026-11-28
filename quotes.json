@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T18:17:39.433Z",
+  "updatedAt": "2026-11-28T01:31:27.129Z",
   "source": "Yahoo via GitHub Actions",
   "quotes": {
     "NVDA": {
@@ -15,10 +15,10 @@
     },
     "TSM": {
       "symbol": "TSM",
-      "price": 350.36,
+      "price": 353.34,
       "previousClose": 342.34,
-      "change": 8.020000000000039,
-      "changePercent": 2.342700239527966,
+      "change": 11,
+      "changePercent": 3.2131798796518085,
       "currency": "USD",
       "exchange": "NYQ",
       "marketTime": "2026-11-27T18:00:02.000Z",
@@ -54,7 +54,7 @@
       "changePercent": 4.828411811652038,
       "currency": "USD",
       "exchange": "NYQ",
-      "marketTime": "2026-11-27T18:00:01.000Z",
+      "marketTime": "2026-11-27T18:02:49.000Z",
       "source": "Yahoo"
     },
     "MU": {
@@ -70,10 +70,10 @@
     },
     "BOXX": {
       "symbol": "BOXX",
-      "price": 119.24,
+      "price": 119.22,
       "previousClose": 119.22,
-      "change": 0.01999999999999602,
-      "changePercent": 0.01677570877369235,
+      "change": 0,
+      "changePercent": 0,
       "currency": "USD",
       "exchange": "BTS",
       "marketTime": "2026-11-27T18:00:00.000Z",
@@ -81,10 +81,10 @@
     }
   },
   "fx": {
-    "rate": 32.955,
+    "rate": 32.979,
     "source": "Yahoo",
     "symbol": "TWD=X",
-    "updatedAt": "2026-11-27T18:17:39.510Z"
+    "updatedAt": "2026-11-28T01:31:27.254Z"
   },
   "errors": {}
 }
